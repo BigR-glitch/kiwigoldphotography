@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kiwigold Photography — Corporate, Weddings & Portraits</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Jost:wght@200;300;400;500&family=Abril+Fatface&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --obsidian: #080808;
+  --obsidian2: #0f0f0f;
+  --obsidian3: #161616;
+  --ivory: #f8f3ec;
+  --ivory2: #ede6d8;
+  --champagne: #d4af6e;
+  --champagne-lt: #e8cfa0;
+  --champagne-dk: #a8883d;
+  --wave: #5ba4cf;
+  --wave-dk: #3a7fa8;
+  --wave-glow: rgba(91,164,207,0.18);
+  --blush: #c9937a;
+  --sage: #8a9e8f;
+  --muted: #6a6258;
+  --text: #ccc5b8;
+  --text-dim: #7a7268;
+  --white: #ffffff;
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--obsidian);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.6rem 4rem;
+  transition: all 0.5s var(--transition);
+}
+nav::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.92), transparent);
+  opacity: 0; transition: opacity 0.4s;
+  pointer-events: none;
+}
+nav.scrolled::before { opacity: 1; }
+nav.scrolled { padding: 1rem 4rem; }
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  text-decoration: none;
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; line-height: 1;
+}
+.nav-logo .logo-text { display: flex; flex-direction: column; gap: 3px; }
+.nav-logo .logo-main {
+  font-size: 1.22rem; font-weight: 400; letter-spacing: 0.06em;
+  color: var(--ivory); font-style: normal; line-height: 1;
+  position: relative; white-space: nowrap;
+}
+.nav-logo .logo-main::before {
+  content: '';
+  position: absolute; left: -1rem; top: 50%; transform: translateY(-50%);
+  width: 5px; height: 5px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--champagne-lt), var(--champagne-dk));
+  opacity: 0; transition: opacity 0.4s var(--transition);
+}
+.nav-logo:hover .logo-main::before { opacity: 1; }
+.nav-logo .logo-main::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--champagne), var(--wave), transparent);
+  border-radius: 2px; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.45s var(--transition);
+}
+.nav-logo:hover .logo-main::after { transform: scaleX(1); }
+.nav-logo .logo-main .logo-kiwi {
+  font-style: normal; color: var(--ivory); font-weight: 300;
+}
+.nav-logo .logo-main .logo-gold {
+  font-style: italic; color: var(--champagne); font-weight: 500;
+}
+.nav-logo .logo-sub {
+  font-size: 0.44rem; letter-spacing: 0.38em; text-transform: uppercase;
+  color: var(--text-dim); font-family: 'Jost', sans-serif; font-weight: 300;
+}
+
+.nav-center {
+  display: flex; gap: 3rem; list-style: none;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-center a {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
+  color: var(--text-dim); text-decoration: none; transition: color 0.3s;
+  position: relative; padding-bottom: 4px;
+}
+.nav-center a::after {
+  content: ''; position: absolute; bottom: 0; left: 50%; right: 50%;
+  height: 1px; background: var(--champagne); transition: left 0.3s, right 0.3s;
+}
+.nav-center a:hover, .nav-center a.active { color: var(--champagne); }
+.nav-center a:hover::after, .nav-center a.active::after { left: 0; right: 0; }
+
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-btn {
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+  border: 1px solid rgba(212,175,110,0.4); color: var(--champagne);
+  padding: 0.6rem 1.6rem; text-decoration: none; transition: all 0.3s; border-radius: 1px;
+}
+.nav-btn:hover { background: var(--champagne); color: var(--obsidian); border-color: var(--champagne); }
+
+.hamburger { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1; }
+.hamburger span { width: 28px; height: 1px; background: var(--champagne); display: block; transition: all 0.3s; }
+
+/* ── MOBILE MENU ── */
+.mobile-nav {
+  display: none; position: fixed; inset: 0; z-index: 490;
+  background: var(--obsidian);
+  flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 300;
+  color: var(--ivory); text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s; position: relative;
+}
+.mobile-nav a:hover { color: var(--champagne); }
+
+/* ── SECTIONS ── */
+section { display: none; min-height: 100vh; }
+section.active { display: block; }
+#home { display: none; padding: 0; }
+#home.active { display: block; }
+
+/* ════════════════════════════
+   HERO
+════════════════════════════ */
+.hero {
+  position: relative; height: 100vh; overflow: hidden;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+}
+
+.hero-slides {
+  position: absolute; inset: 0;
+}
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.8s var(--transition);
+  transform: scale(1.08);
+  animation: none;
+}
+.hero-slide.active {
+  opacity: 1;
+  animation: heroKen 18s ease-in-out forwards;
+}
+@keyframes heroKen {
+  from { transform: scale(1.08); }
+  to { transform: scale(1.0); }
+}
+
+/* Hero slides backgrounds */
+.hero-slide:nth-child(1) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1800&q=85'); }
+.hero-slide:nth-child(2) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1800&q=85'); }
+.hero-slide:nth-child(3) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1800&q=85'); }
+.hero-slide:nth-child(4) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1800&q=85'); }
+
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(8,8,8,0.7) 100%);
+  pointer-events: none; z-index: 1;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.hero-noise {
+  position: absolute; inset: 0; z-index: 2; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 220px; pointer-events: none;
+}
+
+.hero-content {
+  position: relative; z-index: 3;
+  padding: 0 5rem 6rem;
+  max-width: 800px;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--champagne); margin-bottom: 2rem;
+  animation: slideRight 1.2s 0.3s var(--transition) both;
+}
+.hero-tag::before {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--champagne);
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 300; line-height: 1.05; color: var(--ivory);
+  margin-bottom: 1.8rem; letter-spacing: -0.01em;
+  animation: slideRight 1.2s 0.5s var(--transition) both;
+}
+.hero-title em { font-style: italic; color: var(--champagne); }
+.hero-title .line2 { display: block; padding-left: 4rem; }
+
+.hero-sub {
+  font-size: 1rem; font-weight: 300; color: var(--text-dim); line-height: 1.8;
+  max-width: 420px; margin-bottom: 3rem;
+  animation: slideRight 1.2s 0.7s var(--transition) both;
+}
+
+.hero-btns {
+  display: flex; gap: 1.2rem; flex-wrap: wrap;
+  animation: slideRight 1.2s 0.9s var(--transition) both;
+}
+.btn-primary {
+  padding: 1rem 2.8rem; background: var(--champagne); color: var(--obsidian);
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  border: none; border-radius: 1px; cursor: pointer; text-decoration: none; display: inline-block;
+  transition: all 0.3s var(--transition);
+}
+.btn-primary:hover { background: var(--champagne-lt); transform: translateY(-3px); box-shadow: 0 16px 32px rgba(212,175,110,0.25); }
+.btn-outline {
+  padding: 1rem 2.8rem; background: transparent;
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 400;
+  border: 1px solid rgba(248,243,236,0.25); color: var(--ivory); border-radius: 1px;
+  cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s;
+}
+.btn-outline:hover { border-color: var(--champagne); color: var(--champagne); }
+
+.hero-counter {
+  position: absolute; right: 4rem; bottom: 6rem; z-index: 3;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem;
+}
+.hero-dots { display: flex; gap: 8px; }
+.hero-dot {
+  width: 20px; height: 2px; background: rgba(248,243,236,0.25);
+  cursor: pointer; transition: all 0.3s;
+}
+.hero-dot.active { width: 40px; background: var(--champagne); }
+
+@keyframes slideRight { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── STATS BAR ── */
+.stats-strip {
+  background: var(--obsidian2); border-top: 1px solid rgba(212,175,110,0.1);
+  display: flex; justify-content: center;
+}
+.stats-strip-inner { display: flex; flex-wrap: wrap; }
+.stat-item {
+  padding: 3rem 5rem; text-align: center;
+  border-right: 1px solid rgba(212,175,110,0.08); position: relative;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 300; color: var(--champagne);
+  display: block; line-height: 1; margin-bottom: 0.6rem;
+}
+.stat-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); }
+
+/* ── MARQUEE ── */
+.marquee-section {
+  overflow: hidden; border-top: 1px solid rgba(212,175,110,0.08);
+  border-bottom: 1px solid rgba(212,175,110,0.08);
+  background: var(--obsidian3); padding: 1.2rem 0;
+}
+.marquee-track {
+  display: flex; white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+.marquee-item {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
+  color: var(--text-dim); padding: 0 3rem; flex-shrink: 0;
+}
+.marquee-dot { color: var(--champagne); margin: 0 0.5rem; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── FEATURED ── */
+.featured {
+  padding: 8rem 4rem;
+  background: var(--obsidian);
+}
+.section-label {
+  display: flex; align-items: center; gap: 1.5rem;
+  font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--champagne);
+  margin-bottom: 1.5rem;
+}
+.section-label::before { content: ''; display: block; width: 50px; height: 1px; background: var(--champagne); }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 4.5vw, 4rem); font-weight: 300; color: var(--ivory);
+  line-height: 1.15; margin-bottom: 5rem;
+}
+.section-title em { font-style: italic; color: var(--champagne); }
+.section-title .pull { padding-left: 6rem; display: block; }
+
+/* Featured asymmetric grid */
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.feat-main { grid-row: 1 / 3; position: relative; overflow: hidden; cursor: pointer; border-radius: 2px; }
+.feat-side { position: relative; overflow: hidden; cursor: pointer; border-radius: 2px; }
+
+.feat-main, .feat-side { background: var(--obsidian3); }
+.feat-main img, .feat-side img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.9s var(--transition), filter 0.5s;
+  filter: brightness(0.85) saturate(0.95);
+}
+.feat-main:hover img, .feat-side:hover img { transform: scale(1.05); filter: brightness(0.7) saturate(1.1); }
+.feat-main { aspect-ratio: 4/5; }
+.feat-side { aspect-ratio: 4/3; }
+.feat-label {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 100%);
+  padding: 3rem 2rem 2rem;
+  opacity: 0; transition: opacity 0.4s;
+}
+.feat-main:hover .feat-label, .feat-side:hover .feat-label { opacity: 1; }
+.feat-cat { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--champagne); margin-bottom: 0.5rem; }
+.feat-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 300; color: var(--ivory); }
+
+/* ── SERVICES ── */
+.services { padding: 8rem 4rem; background: var(--obsidian2); }
+.services-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; max-width: 1200px; margin: 0 auto; align-items: start; }
+.services-intro { position: sticky; top: 8rem; }
+.services-desc { font-size: 1rem; font-weight: 300; line-height: 1.9; color: var(--text-dim); margin-top: 1.5rem; max-width: 400px; }
+.services-cta { margin-top: 2.5rem; }
+
+.service-list { display: flex; flex-direction: column; gap: 0; }
+.service-item {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(212,175,110,0.1);
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: start; gap: 2rem;
+  cursor: pointer; transition: background 0.3s;
+  position: relative;
+}
+.service-item::before {
+  content: ''; position: absolute; left: -4rem; top: 0; bottom: 0;
+  width: 0; background: rgba(212,175,110,0.04); transition: width 0.4s;
+}
+.service-item:hover::before { width: calc(100% + 8rem); }
+.service-num {
+  font-family: 'Playfair Display', serif; font-size: 0.8rem; color: var(--champagne);
+  font-style: italic; padding-top: 0.3rem;
+}
+.service-info h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 300;
+  color: var(--ivory); margin-bottom: 0.6rem; transition: color 0.3s;
+}
+.service-item:hover .service-info h3 { color: var(--champagne); }
+.service-info p { font-size: 0.85rem; line-height: 1.7; color: var(--text-dim); }
+.service-price { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--champagne); white-space: nowrap; padding-top: 0.4rem; }
+
+/* ── GALLERY ── */
+#gallery { display: none; padding: 6rem 3rem 4rem; }
+#gallery.active { display: block; }
+.gallery-header { text-align: center; margin-bottom: 4rem; }
+.gallery-filters {
+  display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 2rem;
+}
+.filter-btn {
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.55rem 1.6rem; border: 1px solid rgba(212,175,110,0.2);
+  background: transparent; color: var(--text-dim); border-radius: 1px;
+  cursor: pointer; transition: all 0.3s;
+}
+.filter-btn.active, .filter-btn:hover { border-color: var(--champagne); color: var(--champagne); background: rgba(212,175,110,0.06); }
+
+.masonry { columns: 4; column-gap: 14px; max-width: 1600px; margin: 0 auto; }
+@media (max-width: 1200px) { .masonry { columns: 3; } }
+@media (max-width: 900px) { .masonry { columns: 2; } }
+@media (max-width: 540px) { .masonry { columns: 1; } }
+
+.photo-card {
+  break-inside: avoid; margin-bottom: 14px; position: relative;
+  overflow: hidden; border-radius: 2px; cursor: pointer;
+}
+.photo-card img {
+  width: 100%; display: block;
+  transition: transform 0.8s var(--transition), filter 0.5s;
+  filter: brightness(0.9);
+}
+.photo-card:hover img { transform: scale(1.06); filter: brightness(0.65); }
+.photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; padding: 1.5rem;
+}
+.photo-card:hover .photo-overlay { opacity: 1; }
+.photo-caption { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: var(--ivory); }
+.photo-tag {
+  position: absolute; top: 1rem; left: 1rem; z-index: 2;
+  font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--champagne); background: rgba(8,8,8,0.55);
+  border: 1px solid rgba(212,175,110,0.3);
+  padding: 0.35rem 0.8rem; border-radius: 1px; backdrop-filter: blur(2px);
+}
+
+/* ── GALLERY CARD NAV ARROWS ── */
+.card-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3; display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(8,8,8,0.55); backdrop-filter: blur(4px);
+  border: 1px solid rgba(212,175,110,0.35); color: var(--champagne);
+  font-size: 1.1rem; line-height: 1; cursor: pointer;
+  opacity: 0; transition: opacity 0.3s, background 0.3s, border-color 0.3s, transform 0.3s;
+  pointer-events: none;
+}
+.card-nav-prev { left: 0.65rem; }
+.card-nav-next { right: 0.65rem; }
+.photo-card:hover .card-nav { opacity: 1; pointer-events: all; transform: translateY(-50%) scale(1); }
+.card-nav:hover { background: var(--champagne); color: var(--obsidian); border-color: var(--champagne); }
+.card-nav-prev:hover { transform: translateY(-50%) scale(1.08) translateX(-2px); }
+.card-nav-next:hover { transform: translateY(-50%) scale(1.08) translateX(2px); }
+
+/* ── FILMS ── */
+#films { display: none; padding: 6rem 3rem 4rem; }
+#films.active { display: block; }
+.films-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem;
+  max-width: 1300px; margin: 4rem auto 0;
+}
+@media (max-width: 1000px) { .films-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .films-grid { grid-template-columns: 1fr; } }
+
+.film-card {
+  position: relative; overflow: hidden; border-radius: 3px; cursor: pointer;
+  aspect-ratio: 4/5; background: var(--obsidian3);
+  border: 1px solid rgba(212,175,110,0.1);
+}
+.film-card img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.9s var(--transition), filter 0.5s;
+  filter: brightness(0.62) saturate(0.95);
+}
+.film-card:hover img { transform: scale(1.06); filter: brightness(0.45) saturate(1.05); }
+.film-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.1) 55%);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 1.6rem;
+}
+.film-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.film-duration {
+  font-size: 0.62rem; letter-spacing: 0.12em; color: var(--ivory);
+  background: rgba(8,8,8,0.55); border: 1px solid rgba(248,243,236,0.2);
+  padding: 0.3rem 0.7rem; border-radius: 1px;
+}
+.film-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(212,175,110,0.18); border: 1.5px solid var(--champagne);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.35s var(--transition); backdrop-filter: blur(2px);
+}
+.film-play::after {
+  content: ''; width: 0; height: 0;
+  border-style: solid; border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent var(--champagne);
+  margin-left: 3px;
+}
+.film-card:hover .film-play { background: var(--champagne); transform: translate(-50%,-50%) scale(1.1); }
+.film-card:hover .film-play::after { border-color: transparent transparent transparent var(--obsidian); }
+.film-bottom { }
+.film-cat { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--champagne); margin-bottom: 0.5rem; }
+.film-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 300; color: var(--ivory); line-height: 1.25; }
+
+.films-intro { text-align: center; max-width: 640px; margin: 1.5rem auto 0; font-size: 0.92rem; line-height: 1.85; color: var(--text-dim); }
+
+/* ── FILM MODAL ── */
+.film-modal {
+  position: fixed; inset: 0; z-index: 900; background: rgba(4,4,4,0.92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: opacity 0.3s; padding: 2rem;
+}
+.film-modal.open { opacity: 1; visibility: visible; }
+.film-modal-inner {
+  max-width: 560px; width: 100%; background: var(--obsidian2);
+  border: 1px solid rgba(212,175,110,0.2); border-radius: 3px; overflow: hidden;
+  text-align: center;
+}
+.film-modal-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: brightness(0.7); }
+.film-modal-body { padding: 2.2rem; }
+.film-modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--ivory); margin-bottom: 0.8rem; }
+.film-modal-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.6rem; }
+.film-modal-close {
+  position: absolute; top: 1rem; right: 1rem; width: 38px; height: 38px;
+  border-radius: 50%; background: rgba(8,8,8,0.6); border: 1px solid rgba(248,243,236,0.2);
+  color: var(--ivory); font-size: 1rem; cursor: pointer; z-index: 2;
+}
+
+/* ── ABOUT ── */
+#about { display: none; padding: 6rem 4rem 4rem; }
+#about.active { display: block; }
+.about-wrap { max-width: 1200px; margin: 0 auto; }
+.about-hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6rem; align-items: center; margin-bottom: 8rem;
+}
+.about-img-wrap { position: relative; }
+.about-img-main {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block;
+  border-radius: 2px; filter: brightness(0.9) saturate(0.95);
+}
+.about-img-accent {
+  position: absolute; bottom: -3rem; right: -3rem;
+  width: 55%; aspect-ratio: 1; object-fit: cover;
+  border-radius: 2px; border: 6px solid var(--obsidian);
+  filter: brightness(0.9);
+}
+.about-badge {
+  position: absolute; top: 2rem; left: -2rem;
+  background: var(--champagne); color: var(--obsidian);
+  padding: 1.2rem; text-align: center; border-radius: 50%;
+  width: 90px; height: 90px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.about-badge-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; line-height: 1; }
+.about-badge-txt { font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+.about-text {}
+.about-text .section-label { margin-bottom: 1.2rem; }
+.about-headline {
+  font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--ivory); line-height: 1.2; margin-bottom: 2rem;
+}
+.about-headline em { font-style: italic; color: var(--champagne); }
+.about-body { font-size: 0.92rem; line-height: 1.95; color: var(--text-dim); margin-bottom: 1.5rem; }
+
+.signature {
+  font-family: 'Playfair Display', serif; font-style: italic; font-size: 2rem;
+  color: var(--champagne); margin: 2.5rem 0 2rem; letter-spacing: 0.02em;
+}
+
+.awards-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; }
+.award-item { text-align: center; }
+.award-icon { font-size: 1.8rem; margin-bottom: 0.4rem; display: block; }
+.award-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section {
+  padding: 7rem 4rem;
+  background: var(--obsidian2);
+  border-top: 1px solid rgba(212,175,110,0.08);
+}
+.testimonials-wrap { max-width: 1100px; margin: 0 auto; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+@media (max-width: 800px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+.testi-card {
+  background: var(--obsidian3); border: 1px solid rgba(212,175,110,0.1);
+  padding: 2.5rem; border-radius: 2px; position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.testi-card:hover { border-color: rgba(212,175,110,0.3); transform: translateY(-5px); }
+.testi-quote-mark {
+  font-family: 'Playfair Display', serif; font-size: 5rem; font-style: italic;
+  color: rgba(212,175,110,0.15); line-height: 0.7; margin-bottom: 1.5rem; display: block;
+}
+.testi-text { font-size: 0.9rem; line-height: 1.8; color: var(--text-dim); font-style: italic; margin-bottom: 2rem; }
+.testi-author { display: flex; align-items: center; gap: 1rem; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
+  border: 2px solid rgba(212,175,110,0.2);
+}
+.testi-name { font-size: 0.85rem; color: var(--ivory); font-weight: 400; }
+.testi-role { font-size: 0.65rem; letter-spacing: 0.12em; color: var(--champagne); text-transform: uppercase; }
+.testi-stars { color: var(--champagne); font-size: 0.7rem; margin-bottom: 0.3rem; }
+
+/* ── COLLECTIONS (GALLERY PAGE VARIANT) ── */
+.collections-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  max-width: 1300px; margin: 4rem auto 0;
+}
+@media (max-width: 900px) { .collections-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px) { .collections-grid { grid-template-columns: 1fr; } }
+
+.collection-card {
+  position: relative; overflow: hidden; border-radius: 2px;
+  aspect-ratio: 3/4; cursor: pointer;
+}
+.collection-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.9s var(--transition), filter 0.5s;
+  filter: brightness(0.7) saturate(0.9);
+}
+.collection-card:hover img { transform: scale(1.07); filter: brightness(0.5) saturate(1.1); }
+.collection-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, rgba(8,8,8,0.1) 60%);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding: 2.5rem; text-align: center;
+}
+.collection-num {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  font-family: 'Playfair Display', serif; font-size: 0.8rem; font-style: italic;
+  color: rgba(212,175,110,0.5);
+}
+.collection-cat { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--champagne); margin-bottom: 0.7rem; }
+.collection-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 300; color: var(--ivory); margin-bottom: 1rem; }
+.collection-link {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--champagne);
+  display: flex; align-items: center; gap: 0.7rem; text-decoration: none;
+  opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s;
+}
+.collection-card:hover .collection-link { opacity: 1; transform: translateY(0); }
+.collection-link::after { content: '→'; }
+
+/* ── PRICING ── */
+#pricing { display: none; padding: 6rem 4rem 4rem; }
+#pricing.active { display: block; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 4rem auto 0; }
+@media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+.pricing-card {
+  background: var(--obsidian2); border: 1px solid rgba(212,175,110,0.1);
+  border-radius: 2px; padding: 3rem 2.5rem; position: relative;
+  transition: all 0.4s var(--transition);
+}
+.pricing-card.featured-plan {
+  border-color: var(--champagne);
+  background: linear-gradient(135deg, rgba(212,175,110,0.08) 0%, var(--obsidian2) 100%);
+}
+.pricing-card:hover { transform: translateY(-8px); border-color: rgba(212,175,110,0.4); }
+.plan-badge {
+  position: absolute; top: -1px; right: 2rem;
+  background: var(--champagne); color: var(--obsidian);
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.35rem 1rem; border-radius: 0 0 3px 3px; font-weight: 500;
+}
+.plan-icon { font-size: 2.2rem; margin-bottom: 1.5rem; display: block; }
+.plan-name {
+  font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 300;
+  color: var(--ivory); margin-bottom: 0.5rem;
+}
+.plan-tagline { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 2rem; }
+.plan-price {
+  display: flex; align-items: flex-start; gap: 0.4rem; margin-bottom: 2rem;
+}
+.plan-currency { font-size: 1.2rem; color: var(--champagne); padding-top: 0.5rem; }
+.plan-amount { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 300; color: var(--ivory); line-height: 1; }
+.plan-unit { font-size: 0.75rem; color: var(--text-dim); align-self: flex-end; padding-bottom: 0.5rem; }
+.plan-divider { height: 1px; background: rgba(212,175,110,0.12); margin-bottom: 2rem; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.5rem; }
+.plan-feature { display: flex; align-items: center; gap: 0.9rem; font-size: 0.85rem; color: var(--text-dim); }
+.plan-feature .check { color: var(--champagne); font-size: 0.7rem; }
+.plan-feature .cross { color: var(--text-dim); opacity: 0.4; font-size: 0.7rem; }
+
+/* ── BOOK ── */
+#book { display: none; padding: 6rem 4rem 4rem; }
+#book.active { display: block; }
+.book-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; max-width: 1100px; margin: 4rem auto 0; align-items: start; }
+@media (max-width: 800px) { .book-layout { grid-template-columns: 1fr; } }
+
+.book-sidebar {}
+.book-visual {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 2px;
+  filter: brightness(0.8); margin-bottom: 2rem;
+}
+.book-tagline { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; font-weight: 300; color: var(--ivory); line-height: 1.4; margin-bottom: 2rem; }
+.book-meta { display: flex; flex-direction: column; gap: 1.2rem; }
+.book-meta-item { display: flex; align-items: center; gap: 1rem; }
+.book-meta-icon { font-size: 1.1rem; }
+.book-meta-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--champagne); display: block; margin-bottom: 0.2rem; }
+.book-meta-val { font-size: 0.85rem; color: var(--text-dim); }
+
+.booking-form { background: var(--obsidian2); border: 1px solid rgba(212,175,110,0.12); border-radius: 2px; padding: 3rem; }
+.form-group { margin-bottom: 1.4rem; }
+.form-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--champagne); display: block; margin-bottom: 0.5rem; }
+.form-input {
+  width: 100%; padding: 0.9rem 1rem;
+  background: var(--obsidian3); border: 1px solid rgba(212,175,110,0.12);
+  border-radius: 1px; color: var(--text); font-size: 0.88rem; font-family: 'Jost', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s; outline: none;
+}
+.form-input:focus { border-color: var(--champagne); box-shadow: 0 0 0 3px rgba(212,175,110,0.08); }
+.form-input::placeholder { color: rgba(106,98,88,0.5); }
+select.form-input { cursor: pointer; }
+textarea.form-input { resize: vertical; min-height: 110px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+.whatsapp-btn {
+  width: 100%; padding: 1.1rem;
+  background: #25D366; color: var(--white);
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  border: none; border-radius: 1px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+  transition: all 0.3s; margin-top: 0.5rem; text-decoration: none; font-family: 'Jost', sans-serif;
+}
+.whatsapp-btn:hover { background: #1db954; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(37,211,102,0.25); }
+
+/* ── CONTACT ── */
+#contact { display: none; padding: 6rem 4rem 4rem; }
+#contact.active { display: block; }
+.contact-wrap { max-width: 1100px; margin: 4rem auto 0; }
+.contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; }
+@media (max-width: 800px) { .contact-layout { grid-template-columns: 1fr; } }
+.contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
+.contact-block {}
+.contact-block-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--champagne); margin-bottom: 0.6rem; display: block; }
+.contact-block-val { font-size: 0.92rem; color: var(--text-dim); line-height: 1.7; }
+.contact-block-val a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.contact-block-val a:hover { color: var(--champagne); }
+.social-row { display: flex; gap: 0.9rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.social-pill {
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+  width: 46px; height: 46px; padding: 0;
+  border: 1px solid rgba(212,175,110,0.25);
+  border-radius: 50%; color: var(--ivory); text-decoration: none;
+  background: var(--obsidian3);
+  overflow: hidden; isolation: isolate;
+  transition: border-color 0.35s, transform 0.35s var(--transition), box-shadow 0.35s;
+}
+.social-pill::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(140deg, var(--champagne-lt) 0%, var(--champagne) 55%, var(--champagne-dk) 100%);
+  transform: translateY(105%); transition: transform 0.4s var(--transition);
+}
+.social-pill svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.35s var(--transition); position: relative; z-index: 1; }
+.social-pill .social-label { display: none; }
+.social-pill:hover {
+  border-color: var(--champagne); transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(212,175,110,0.25);
+}
+.social-pill:hover::before { transform: translateY(0); }
+.social-pill:hover svg { color: var(--obsidian); transform: scale(1.08); }
+.social-pill.labeled {
+  width: auto; height: auto; padding: 0.6rem 1.3rem 0.6rem 1rem;
+  border-radius: 50px; gap: 0.65rem;
+}
+.social-pill.labeled .social-label {
+  display: inline-block; font-size: 0.72rem; letter-spacing: 0.04em;
+  color: var(--text-dim); transition: color 0.35s; position: relative; z-index: 1;
+}
+.social-pill.labeled:hover .social-label { color: var(--obsidian); }
+.contact-map-placeholder {
+  width: 100%; aspect-ratio: 16/9; background: var(--obsidian3);
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(212,175,110,0.1); margin-top: 2rem;
+  font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed; inset: 0; background: rgba(8,8,8,0.97); z-index: 800;
+  display: none; align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
+.lightbox-close {
+  position: absolute; top: 2rem; right: 2rem;
+  background: transparent; border: 1px solid rgba(212,175,110,0.3);
+  color: var(--champagne); width: 48px; height: 48px; border-radius: 50%;
+  font-size: 1.2rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+}
+.lightbox-close:hover { background: var(--champagne); color: var(--obsidian); }
+.lightbox-prev, .lightbox-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: transparent; border: 1px solid rgba(212,175,110,0.2);
+  color: var(--champagne); width: 56px; height: 56px; border-radius: 50%;
+  font-size: 1.3rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+}
+.lightbox-prev { left: 2rem; }
+.lightbox-next { right: 2rem; }
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(212,175,110,0.15); border-color: var(--champagne); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--obsidian2); border-top: 1px solid rgba(212,175,110,0.08);
+  padding: 5rem 4rem 2.5rem;
+}
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+@media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+@media (max-width: 600px) { .footer-top { grid-template-columns: 1fr; } }
+
+.footer-brand .nav-logo { display: inline-flex; margin-bottom: 1.5rem; }
+.footer-tagline { font-size: 0.88rem; line-height: 1.8; color: var(--text-dim); max-width: 280px; margin-bottom: 2rem; }
+.footer-heading { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--champagne); margin-bottom: 1.5rem; }
+.footer-nav { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+.footer-nav a { font-size: 0.85rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-nav a:hover { color: var(--champagne); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.04); padding-top: 2rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: 0.75rem; color: var(--text-dim); }
+.footer-bottom-links { display: flex; gap: 2rem; }
+.footer-bottom-links a { font-size: 0.75rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-bottom-links a:hover { color: var(--champagne); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s var(--transition), transform 0.9s var(--transition); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.35s; }
+
+/* ── SPLASH SCREEN ── */
+#splash {
+  position: fixed; inset: 0; z-index: 9000;
+  background: var(--obsidian);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2rem; transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+}
+#splash.hidden { opacity: 0; pointer-events: none; transform: translateY(-20px); }
+.splash-logo {
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+  text-align: center;
+}
+.splash-logo-wordmark {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 10vw, 5.8rem);
+  line-height: 1; white-space: nowrap; letter-spacing: 0.04em;
+}
+.splash-word-kiwi {
+  font-weight: 300; font-style: normal; color: var(--ivory);
+}
+.splash-word-gold {
+  font-weight: 500; font-style: italic;
+  background: linear-gradient(135deg, var(--champagne-lt) 0%, var(--champagne) 50%, var(--champagne-dk) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.splash-logo-divider {
+  display: flex; align-items: center; gap: 0.75rem; width: 100%;
+  margin: 0.3rem 0;
+}
+.splash-logo-divider::before,
+.splash-logo-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--champagne-dk));
+}
+.splash-logo-divider::after {
+  background: linear-gradient(90deg, var(--champagne-dk), transparent);
+}
+.splash-logo-divider-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--champagne); flex-shrink: 0;
+}
+.splash-logo-photography {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem; font-weight: 300; letter-spacing: 0.6em;
+  text-transform: uppercase; color: var(--ivory2);
+}
+.splash-sub {
+  font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--text-dim); font-family: 'Jost', sans-serif;
+}
+.splash-wave {
+  width: 80px; height: 1px; position: relative; overflow: hidden;
+  background: rgba(255,255,255,0.05);
+}
+.splash-wave-inner {
+  position: absolute; left: -100%; top: 0; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, var(--champagne-lt), var(--champagne), transparent);
+  animation: splashWave 1.6s ease-in-out forwards;
+}
+@keyframes splashWave {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ── PAGE TRANSITION ── */
+#pageTransition {
+  position: fixed; inset: 0; z-index: 600;
+  background: linear-gradient(135deg, var(--obsidian) 0%, rgba(8,8,8,0.97) 100%);
+  pointer-events: none; opacity: 0;
+  transition: opacity 0.3s var(--transition);
+}
+#pageTransition.flash { opacity: 1; }
+
+/* ── FLOATING WHATSAPP ── */
+.fab-whatsapp {
+  position: fixed; bottom: 2.5rem; right: 2.5rem; z-index: 400;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; text-decoration: none;
+  box-shadow: 0 8px 30px rgba(37,211,102,0.35);
+  transition: transform 0.3s var(--transition), box-shadow 0.3s;
+  animation: fabPop 0.6s 2s var(--transition) both;
+}
+.fab-whatsapp:hover { transform: scale(1.12) translateY(-3px); box-shadow: 0 16px 40px rgba(37,211,102,0.45); }
+@keyframes fabPop { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.fab-tooltip {
+  position: absolute; right: 70px; background: var(--obsidian2);
+  border: 1px solid rgba(37,211,102,0.25); color: var(--text);
+  font-size: 0.72rem; letter-spacing: 0.08em; white-space: nowrap;
+  padding: 0.5rem 0.9rem; border-radius: 4px;
+  opacity: 0; pointer-events: none; transform: translateX(8px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.fab-whatsapp:hover .fab-tooltip { opacity: 1; transform: translateX(0); }
+
+/* ── BACK TO TOP ── */
+.back-top {
+  position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 400;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(15,15,15,0.9); border: 1px solid rgba(212,175,110,0.25);
+  color: var(--champagne); font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+  opacity: 0; transform: translateY(20px);
+  pointer-events: none;
+}
+.back-top.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.back-top:hover { background: var(--champagne); color: var(--obsidian); border-color: var(--champagne); transform: translateY(-3px); }
+
+/* ── WAVE HERO ACCENT ── */
+.hero-wave-accent {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  height: 80px; overflow: hidden; pointer-events: none;
+}
+.hero-wave-accent svg { width: 100%; height: 100%; }
+
+/* ── SECTION WAVE DIVIDER ── */
+.wave-divider {
+  width: 60px; height: 3px; margin: 1.5rem 0 0;
+  background: linear-gradient(90deg, var(--wave), var(--champagne));
+  border-radius: 3px; position: relative; overflow: hidden;
+}
+.wave-divider::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+@keyframes shimmer { 0%{left:-100%} 60%,100%{left:100%} }
+
+/* ── NAV WAVE ACTIVE INDICATOR ── */
+.nav-center a.active::after { background: linear-gradient(90deg, var(--wave), var(--champagne)); }
+.nav-center a:hover::after  { background: linear-gradient(90deg, var(--wave), var(--champagne)); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1000px) {
+  .about-hero-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .services-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .services-intro { position: static; }
+  nav { padding: 1.2rem 2rem; }
+  .nav-center, .nav-right { display: none; }
+  .hamburger { display: flex; }
+  .hero-content { padding: 0 2rem 5rem; }
+  .hero-counter { right: 1.5rem; bottom: 4rem; }
+  .stat-item { padding: 2rem 2.5rem; }
+  .featured-grid { grid-template-columns: 1fr; }
+  .feat-main { grid-row: auto; }
+  footer { padding: 4rem 2rem 2rem; }
+  #about, #gallery, #pricing, #book, #contact { padding-left: 2rem; padding-right: 2rem; }
+  .featured, .services { padding-left: 2rem; padding-right: 2rem; }
+  .book-layout { gap: 3rem; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: 3rem; }
+  .hero-title .line2 { padding-left: 1.5rem; }
+  .section-title .pull { padding-left: 2rem; }
+}
+
+/* ── MOBILE PHONE FIXES (≤ 480px) ── */
+@media (max-width: 480px) {
+  html, body { overflow-x: hidden; width: 100%; }
+
+  /* NAV */
+  nav, nav.scrolled { padding: 0.9rem 1.2rem; }
+  .nav-logo .logo-main { font-size: 1rem; letter-spacing: 0.04em; }
+  .nav-logo .logo-sub { display: none; }
+  .hamburger span { width: 24px; }
+  .mobile-nav { gap: 1.8rem; }
+  .mobile-nav a { font-size: 2rem; }
+  .nav-btn { padding: 0.5rem 1.1rem; font-size: 0.62rem; }
+
+  /* HERO */
+  .hero-content { padding: 0 1.3rem 4rem; max-width: 100%; }
+  .hero-tag { font-size: 0.58rem; gap: 0.6rem; margin-bottom: 1.2rem; }
+  .hero-tag::before { width: 26px; }
+  .hero-title { font-size: 2.4rem; line-height: 1.12; margin-bottom: 1.2rem; }
+  .hero-title .line2 { padding-left: 0.8rem; }
+  .hero-sub { font-size: 0.88rem; max-width: 100%; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-btns { gap: 0.8rem; }
+  .btn-primary, .btn-outline { padding: 0.85rem 1.6rem; font-size: 0.65rem; flex: 1 1 auto; text-align: center; }
+  .hero-counter { right: 1.3rem; bottom: 1.6rem; }
+  .hero-dot { width: 14px; }
+  .hero-dot.active { width: 26px; }
+
+  /* STATS */
+  .stats-strip-inner { width: 100%; }
+  .stat-item { padding: 1.4rem 1rem; flex: 1 1 50%; border-right: none; border-bottom: 1px solid rgba(212,175,110,0.08); }
+  .stat-item:nth-child(odd) { border-right: 1px solid rgba(212,175,110,0.08); }
+  .stat-num { font-size: 1.9rem; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.55rem; letter-spacing: 0.15em; }
+
+  /* MARQUEE */
+  .marquee-item { font-size: 0.85rem; padding: 0 1.6rem; }
+
+  /* SECTION HEADERS */
+  .featured, .services { padding: 4rem 1.3rem; }
+  .section-title { font-size: clamp(1.7rem, 8vw, 2.4rem); margin-bottom: 2.8rem; }
+  .section-title .pull { padding-left: 1rem; }
+  .section-label { font-size: 0.58rem; gap: 0.9rem; }
+  .section-label::before { width: 30px; }
+
+  /* FEATURED GRID */
+  .featured-grid { gap: 1rem; }
+  .feat-label { padding: 2rem 1.2rem 1.2rem; opacity: 1; background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, transparent 100%); }
+  .feat-name { font-size: 1.1rem; }
+
+  /* SERVICES */
+  .service-item { grid-template-columns: auto 1fr; gap: 1rem; padding: 1.8rem 0; }
+  .service-price { grid-column: 2; padding-top: 0; }
+  .service-info h3 { font-size: 1.2rem; }
+  .services-desc { font-size: 0.9rem; }
+
+  /* GALLERY / FILMS / COLLECTIONS PAGES */
+  #gallery, #films, #about, #pricing, #book, #contact { padding-left: 1.3rem; padding-right: 1.3rem; padding-top: 5.5rem; }
+  .gallery-header { margin-bottom: 2.5rem; }
+  .filter-btn { padding: 0.45rem 1.1rem; font-size: 0.6rem; }
+  .masonry { column-gap: 10px; }
+  .photo-card { margin-bottom: 10px; }
+
+  .films-intro { font-size: 0.85rem; }
+  .film-title { font-size: 1.1rem; }
+  .film-modal { padding: 1rem; }
+  .film-modal-body { padding: 1.5rem; }
+  .film-modal-title { font-size: 1.2rem; }
+
+  /* ABOUT */
+  .about-hero-grid { gap: 2.5rem; margin-bottom: 4rem; }
+  .about-badge { left: 0.8rem; top: 1rem; width: 70px; height: 70px; padding: 0.8rem; }
+  .about-badge-num { font-size: 1.1rem; }
+  .about-badge-txt { font-size: 0.48rem; }
+  .about-img-accent { width: 48%; bottom: -1.4rem; right: -1rem; border-width: 4px; }
+  .about-headline { margin-bottom: 1.3rem; }
+  .about-body { font-size: 0.88rem; }
+  .signature { font-size: 1.5rem; margin: 1.8rem 0 1.5rem; }
+  .awards-row { gap: 1.4rem; margin-top: 2rem; }
+  .award-icon { font-size: 1.4rem; }
+  .award-label { font-size: 0.58rem; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 4rem 1.3rem; }
+  .testi-card { padding: 1.8rem 1.5rem; }
+  .testi-quote-mark { font-size: 3.5rem; margin-bottom: 1rem; }
+
+  /* PRICING */
+  .pricing-card { padding: 2.2rem 1.6rem; }
+  .plan-amount { font-size: 2.6rem; }
+  .plan-name { font-size: 1.3rem; }
+
+  /* BOOK */
+  .book-layout { gap: 2rem; }
+  .booking-form { padding: 1.8rem 1.4rem; }
+  .book-tagline { font-size: 1.15rem; }
+
+  /* CONTACT */
+  .contact-wrap { margin-top: 2.5rem; }
+  .contact-layout { gap: 2.5rem; }
+  .social-pill.labeled { padding: 0.55rem 1.1rem 0.55rem 0.85rem; }
+  .social-pill.labeled .social-label { font-size: 0.65rem; }
+
+  /* LIGHTBOX */
+  .lightbox-close { top: 1rem; right: 1rem; width: 40px; height: 40px; font-size: 1rem; }
+  .lightbox-prev, .lightbox-next { width: 42px; height: 42px; font-size: 1rem; }
+  .lightbox-prev { left: 0.6rem; }
+  .lightbox-next { right: 0.6rem; }
+
+  /* FOOTER */
+  footer { padding: 3rem 1.3rem 1.8rem; }
+  .footer-tagline { max-width: 100%; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .footer-bottom-links { gap: 1.2rem; flex-wrap: wrap; }
+
+  /* FLOATING BUTTONS */
+  .fab-whatsapp { width: 50px; height: 50px; font-size: 1.35rem; bottom: 1.2rem; right: 1.2rem; }
+  .fab-tooltip { display: none; }
+  .back-top { width: 40px; height: 40px; font-size: 1rem; bottom: 1.2rem; left: 1.2rem; }
+
+  /* SPLASH */
+  .splash-logo-photography { font-size: 0.58rem; letter-spacing: 0.45em; }
+  .splash-sub { font-size: 0.52rem; letter-spacing: 0.3em; text-align: center; padding: 0 1.5rem; }
+}
+
+/* ── ULTRA SMALL PHONES (≤ 380px) ── */
+@media (max-width: 380px) {
+  .hero-title { font-size: 2rem; }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-outline { width: 100%; }
+  .stat-item { flex: 1 1 100%; border-right: none !important; }
+  .about-badge { width: 60px; height: 60px; }
+  .plan-amount { font-size: 2.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <div class="splash-logo-wordmark">
+      <span class="splash-word-kiwi">Kiwi</span><span class="splash-word-gold">gold</span>
+    </div>
+    <div class="splash-logo-divider"><span class="splash-logo-divider-dot"></span></div>
+    <div class="splash-logo-photography">Photography</div>
+  </div>
+  <div class="splash-sub">Corporate · Weddings · Portraits · Accra, Ghana</div>
+  <div class="splash-wave"><div class="splash-wave-inner"></div></div>
+</div>
+
+<!-- PAGE TRANSITION -->
+<div id="pageTransition"></div>
+
+<!-- FLOATING WHATSAPP -->
+<a class="fab-whatsapp" href="https://wa.me/233275021123" target="_blank" title="Chat on WhatsApp">
+  <span class="fab-tooltip">Chat with us</span>
+  💬
+</a>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- CURSOR -->
+
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <span class="logo-text">
+      <span class="logo-main"><span class="logo-kiwi">Kiwi</span><span class="logo-gold">gold</span></span>
+      <span class="logo-sub">Photography &nbsp;·&nbsp; Accra, Ghana</span>
+    </span>
+  </a>
+  <ul class="nav-center">
+    <li><a href="#" onclick="showPage('home')" data-page="home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('gallery')" data-page="gallery">Gallery</a></li>
+    <li><a href="#" onclick="showPage('films')" data-page="films">Films</a></li>
+    <li><a href="#" onclick="showPage('about')" data-page="about">About</a></li>
+    <li><a href="#" onclick="showPage('pricing')" data-page="pricing">Pricing</a></li>
+    <li><a href="#" onclick="showPage('contact')" data-page="contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="nav-btn" href="#" onclick="showPage('book')">Book a Session</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" onclick="showPage('home');toggleMobile()">Home</a>
+  <a href="#" onclick="showPage('gallery');toggleMobile()">Gallery</a>
+  <a href="#" onclick="showPage('films');toggleMobile()">Films</a>
+  <a href="#" onclick="showPage('about');toggleMobile()">About</a>
+  <a href="#" onclick="showPage('pricing');toggleMobile()">Pricing</a>
+  <a href="#" onclick="showPage('book');toggleMobile()">Book a Session</a>
+  <a href="#" onclick="showPage('contact');toggleMobile()">Contact</a>
+</div>
+
+<!-- ══ HOME ══ -->
+<section id="home" class="active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-slides" id="heroSlides">
+      <div class="hero-slide active"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+    </div>
+    <div class="hero-vignette"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-noise"></div>
+
+    <div class="hero-content">
+      <p class="hero-tag">Corporate · Weddings · Portraits &nbsp;·&nbsp; Accra, Ghana</p>
+      <h1 class="hero-title">
+        Every Moment,<br>
+        <em class="line2">Beautifully Told</em>
+      </h1>
+      <p class="hero-sub">Kiwigold Photography captures corporate events, weddings, birthdays and portraits with the same quiet elegance and intentional eye — every frame crafted to last.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#" onclick="showPage('book')">Reserve Your Date</a>
+        <a class="btn-outline" href="#" onclick="showPage('gallery')">Explore Gallery</a>
+      </div>
+    </div>
+
+    <div class="hero-counter">
+      <div class="hero-dots" id="heroDots">
+        <div class="hero-dot active" onclick="goSlide(0)"></div>
+        <div class="hero-dot" onclick="goSlide(1)"></div>
+        <div class="hero-dot" onclick="goSlide(2)"></div>
+        <div class="hero-dot" onclick="goSlide(3)"></div>
+      </div>
+    </div>
+
+    <!-- wave bottom accent -->
+    <div class="hero-wave-accent">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="rgba(8,8,8,0.6)"/>
+        <path d="M0,55 C480,10 960,75 1440,30 L1440,80 L0,80 Z" fill="#080808" opacity="0.9"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stats-strip-inner">
+      <div class="stat-item"><span class="stat-num" data-count="1489" data-suffix="+">0</span><span class="stat-label">Moments Captured</span></div>
+      <div class="stat-item"><span class="stat-num" data-count="5" data-suffix="+">0</span><span class="stat-label">Years of Excellence</span></div>
+      <div class="stat-item"><span class="stat-num" data-count="23" data-suffix="K+">0</span><span class="stat-label">Followers</span></div>
+      <div class="stat-item"><span class="stat-num" data-count="98" data-suffix="%">0</span><span class="stat-label">Client Satisfaction</span></div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">Corporate Events <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Weddings & Birthdays <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Portrait Sessions <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Cinematic Videography <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Engagement Sessions <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Candid Moments <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Corporate Events <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Weddings & Birthdays <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Portrait Sessions <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Cinematic Videography <span class="marquee-dot">✦</span></span>
+      <span class="marquee-item">Engagement Sessions <span class="marquee-dot">✦</span></span>
+    </div>
+  </div>
+
+  <!-- FEATURED WORK -->
+  <div class="featured">
+    <div class="section-label reveal">Selected Work</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Moments That
+      <em class="pull">Endure</em>
+    </h2>
+
+    <div class="featured-grid reveal reveal-delay-2">
+      <div class="feat-main">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=85" alt="Wedding" loading="lazy"/>
+        <div class="feat-label">
+          <div class="feat-cat">Wedding</div>
+          <div class="feat-name">Eternal Vows, Kojo & Ama</div>
+        </div>
+      </div>
+      <div class="feat-side">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=700&q=85" alt="Corporate Event" loading="lazy"/>
+        <div class="feat-label">
+          <div class="feat-cat">Corporate</div>
+          <div class="feat-name">Annual Leadership Summit</div>
+        </div>
+      </div>
+      <div class="feat-side">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=85" alt="Portrait" loading="lazy"/>
+        <div class="feat-label">
+          <div class="feat-cat">Portrait</div>
+          <div class="feat-name">Strength & Grace Story</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="services">
+    <div class="services-layout">
+      <div class="services-intro">
+        <div class="section-label reveal">What We Offer</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Every Frame,
+          <em>Intentional</em>
+        </h2>
+        <p class="services-desc reveal reveal-delay-2">Whether it's a boardroom, a wedding aisle, or a birthday celebration — we listen to your vision, curate the light, and craft images and films that carry the moment long after it has passed.</p>
+        <div class="services-cta reveal reveal-delay-3">
+          <a class="btn-primary" href="#" onclick="showPage('book')">Start a Conversation</a>
+        </div>
+      </div>
+
+      <div class="service-list">
+        <div class="service-item reveal">
+          <span class="service-num">01</span>
+          <div class="service-info">
+            <h3>Corporate Events</h3>
+            <p>Conferences, launches, summits and brand activations — documented with a sharp, professional eye for use across your marketing and PR.</p>
+          </div>
+          <span class="service-price">From GH₵ 1,200</span>
+        </div>
+        <div class="service-item reveal reveal-delay-1">
+          <span class="service-num">02</span>
+          <div class="service-info">
+            <h3>Weddings & Birthdays</h3>
+            <p>Full coverage of ceremonies, receptions and celebrations — every laugh, toast and quiet moment in between, delivered as a curated gallery.</p>
+          </div>
+          <span class="service-price">From GH₵ 2,500</span>
+        </div>
+        <div class="service-item reveal reveal-delay-2">
+          <span class="service-num">03</span>
+          <div class="service-info">
+            <h3>Portrait Sessions</h3>
+            <p>Studio or location portraits for individuals, couples and families — relaxed direction, polished retouching, timeless results.</p>
+          </div>
+          <span class="service-price">From GH₵ 600</span>
+        </div>
+        <div class="service-item reveal reveal-delay-3">
+          <span class="service-num">04</span>
+          <div class="service-info">
+            <h3>Videography</h3>
+            <p>Cinematic highlight reels and event films, beautifully edited to relive the day forever. See our videography page <a href="https://www.instagram.com/play_est" target="_blank" style="color:var(--champagne); text-decoration:none;">@play_est</a>.</p>
+          </div>
+          <span class="service-price">From GH₵ 1,800</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonials-section">
+    <div class="testimonials-wrap">
+      <div class="section-label reveal">Kind Words</div>
+      <h2 class="section-title reveal reveal-delay-1">Our Clients <em>Trust Us</em></h2>
+
+      <div class="testimonials-grid">
+        <div class="testi-card reveal">
+          <span class="testi-quote-mark">"</span>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Kiwigold Photography covered our company's annual summit and the quality blew us away. Professional, fast turnaround, and the photos elevated our entire brand presence.</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=100&q=80&fit=crop&crop=face" class="testi-avatar" alt=""/>
+            <div>
+              <div class="testi-name">Selasi Mensah</div>
+              <div class="testi-role">Corporate Client</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-1">
+          <span class="testi-quote-mark">"</span>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">The portrait session exceeded every expectation. The images feel like fine art — my family and I use them everywhere. Worth every pesewa.</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80&fit=crop&crop=face" class="testi-avatar" alt=""/>
+            <div>
+              <div class="testi-name">Kofi Mensah</div>
+              <div class="testi-role">Portrait Client</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-2">
+          <span class="testi-quote-mark">"</span>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Working with Kiwigold Photography for our wedding was the most beautiful experience. They captured every tender moment in a way we couldn't have imagined possible.</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=100&q=80&fit=crop&crop=face" class="testi-avatar" alt=""/>
+            <div>
+              <div class="testi-name">Abena & Kwame Asante</div>
+              <div class="testi-role">Wedding Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <div class="section-label" style="justify-content:center">Our Portfolio</div>
+    <h2 class="section-title" style="text-align:center; margin-bottom:0">The <em>Gallery</em></h2>
+    <div class="gallery-filters">
+      <button class="filter-btn active" onclick="filterGallery('all', this)">All</button>
+      <button class="filter-btn" onclick="filterGallery('corporate', this)">Corporate</button>
+      <button class="filter-btn" onclick="filterGallery('weddings', this)">Weddings</button>
+      <button class="filter-btn" onclick="filterGallery('portrait', this)">Portrait</button>
+      <button class="filter-btn" onclick="filterGallery('engagement', this)">Engagement</button>
+      <button class="filter-btn" onclick="filterGallery('moments', this)">Moments</button>
+    </div>
+  </div>
+  <div class="masonry" id="galleryGrid"></div>
+</section>
+
+<!-- ══ FILMS ══ -->
+<section id="films">
+  <div class="gallery-header reveal">
+    <div class="section-label" style="justify-content:center">Films & Videography</div>
+    <h2 class="section-title" style="text-align:center; margin-bottom:0">Stories in <em>Motion</em></h2>
+    <p class="films-intro">Beyond the still frame — cinematic highlight reels and event films that let you relive the laughter, the toasts and the moments worth remembering, again and again. See more on our videography page <a href="https://www.instagram.com/play_est" target="_blank" style="color:var(--champagne); text-decoration:none;">@play_est</a>.</p>
+  </div>
+  <div class="films-grid" id="filmsGrid"></div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-hero-grid">
+      <div class="about-img-wrap reveal">
+        <img class="about-img-main" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=85" alt="Photographer at work"/>
+        <img class="about-img-accent" src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&q=80" alt="Camera detail"/>
+        <div class="about-badge">
+          <div class="about-badge-num">7+</div>
+          <div class="about-badge-txt">Years</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">Our Story</div>
+        <h2 class="about-headline reveal reveal-delay-1">Art lives in the<br><em>space between</em><br>breaths</h2>
+        <p class="about-body reveal reveal-delay-2">Kiwigold Photography was born from a belief that photography is not merely documentation — it is translation. We translate love, identity, and devotion into visual language that outlives the moment.</p>
+        <p class="about-body reveal reveal-delay-2">Specialising in corporate events, weddings, birthdays and portraits — with a dedicated videography page <a href="https://www.instagram.com/play_est" target="_blank" style="color:var(--champagne); text-decoration:none;">@play_est</a> for film coverage — we work with individuals and brands who want their story told with elegance and emotion. Based in Accra, Ghana, and open to enquiries by DM.</p>
+        <div class="signature reveal reveal-delay-3">— Kiwigold Photography</div>
+        <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim)" class="reveal reveal-delay-3">Founder & Lead Photographer</p>
+        <div class="awards-row reveal reveal-delay-3">
+          <div class="award-item"><span class="award-icon">📸</span><div class="award-label">1,489+ Posts Shared</div></div>
+          <div class="award-item"><span class="award-icon">✦</span><div class="award-label">23K+ Followers</div></div>
+          <div class="award-item"><span class="award-icon">📍</span><div class="award-label">Accra, Ghana</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section id="pricing">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="section-label reveal">Transparent Pricing</div>
+    <h2 class="section-title reveal reveal-delay-1">Choose Your <em>Experience</em></h2>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <span class="plan-icon">🌿</span>
+        <div class="plan-name">Essentials</div>
+        <div class="plan-tagline">Perfect for portrait sessions & quick shoots</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount">800</span>
+          <span class="plan-unit">/ session</span>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> 2-hour studio session</li>
+          <li class="plan-feature"><span class="check">✦</span> 1 outfit / look</li>
+          <li class="plan-feature"><span class="check">✦</span> 20 edited digital images</li>
+          <li class="plan-feature"><span class="check">✦</span> Online gallery delivery</li>
+          <li class="plan-feature"><span class="cross">—</span> <span style="opacity:0.4">Location shoot</span></li>
+          <li class="plan-feature"><span class="cross">—</span> <span style="opacity:0.4">Print products</span></li>
+        </ul>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+      <div class="pricing-card featured-plan reveal reveal-delay-1">
+        <div class="plan-badge">Most Popular</div>
+        <span class="plan-icon">✨</span>
+        <div class="plan-name">Signature</div>
+        <div class="plan-tagline">Our most sought-after experience</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount">2,200</span>
+          <span class="plan-unit">/ session</span>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> Full-day session (8 hours)</li>
+          <li class="plan-feature"><span class="check">✦</span> Multiple looks / locations</li>
+          <li class="plan-feature"><span class="check">✦</span> 60 fully edited images</li>
+          <li class="plan-feature"><span class="check">✦</span> Online gallery + USB</li>
+          <li class="plan-feature"><span class="check">✦</span> Styling consultation</li>
+          <li class="plan-feature"><span class="check">✦</span> 1 fine-art print included</li>
+        </ul>
+        <a class="btn-primary" style="display:block; text-align:center;" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <span class="plan-icon">👑</span>
+        <div class="plan-name">Bespoke</div>
+        <div class="plan-tagline">Tailored for corporate events & large bookings</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount" style="font-size:2rem; padding-top:0.8rem">Custom</span>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> Unlimited session time</li>
+          <li class="plan-feature"><span class="check">✦</span> Full creative direction</li>
+          <li class="plan-feature"><span class="check">✦</span> Unlimited edited images</li>
+          <li class="plan-feature"><span class="check">✦</span> Luxury album + prints</li>
+          <li class="plan-feature"><span class="check">✦</span> Dedicated project manager</li>
+          <li class="plan-feature"><span class="check">✦</span> Multi-photographer team available</li>
+        </ul>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('contact')">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BOOK ══ -->
+<section id="book">
+  <div style="max-width:1100px; margin: 0 auto;">
+    <div class="section-label reveal">Reserve Your Session</div>
+    <h2 class="section-title reveal reveal-delay-1">Let's Create <em>Something Beautiful</em></h2>
+    <div class="book-layout">
+      <div class="book-sidebar reveal">
+        <img class="book-visual" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=700&q=85" alt="Wedding"/>
+        <p class="book-tagline">"Every great photograph begins with a single, courageous conversation."</p>
+        <div class="book-meta">
+          <div class="book-meta-item">
+            <span class="book-meta-icon">📍</span>
+            <div>
+              <span class="book-meta-label">Studio Location</span>
+              <span class="book-meta-val">Accra, Ghana</span>
+            </div>
+          </div>
+          <div class="book-meta-item">
+            <span class="book-meta-icon">⏱</span>
+            <div>
+              <span class="book-meta-label">Response Time</span>
+              <span class="book-meta-val">Within 24 hours</span>
+            </div>
+          </div>
+          <div class="book-meta-item">
+            <span class="book-meta-icon">📅</span>
+            <div>
+              <span class="book-meta-label">Booking Lead Time</span>
+              <span class="book-meta-val">2–4 weeks recommended</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form reveal reveal-delay-1">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Abena" id="bkFirstName"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Mensah" id="bkLastName"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="you@example.com" id="bkEmail"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp</label>
+          <input type="tel" class="form-input" placeholder="+233 27 502 1123" id="bkPhone"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Session Type</label>
+            <select class="form-input" id="bkType">
+              <option value="">Select a service…</option>
+              <option>Corporate Event</option>
+              <option>Wedding</option>
+              <option>Birthday</option>
+              <option>Portrait Session</option>
+              <option>Videography</option>
+              <option>Bespoke / Custom</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Date</label>
+            <input type="date" class="form-input" id="bkDate"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell Us About Your Vision</label>
+          <textarea class="form-input" placeholder="Share your ideas, the story you want to tell, any special requests…" id="bkMessage"></textarea>
+        </div>
+        <a class="whatsapp-btn" id="whatsappLink" href="#" onclick="sendWhatsApp(event)">
+          <span>💬</span> Send via WhatsApp
+        </a>
+        <button class="btn-primary" style="width:100%; margin-top:1rem; font-family:'Jost',sans-serif; padding:1rem;" onclick="submitBooking()">Submit Enquiry</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="section-label reveal">Reach Out</div>
+    <h2 class="section-title reveal reveal-delay-1">We'd Love to <em>Hear From You</em></h2>
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="contact-block reveal">
+          <span class="contact-block-label">📍 Studio Address</span>
+          <div class="contact-block-val">Accra, Ghana</div>
+        </div>
+        <div class="contact-block reveal reveal-delay-1">
+          <span class="contact-block-label">📞 Phone & WhatsApp</span>
+          <div class="contact-block-val"><a href="tel:+233275021123">+233 27 502 1123</a></div>
+        </div>
+        <div class="contact-block reveal reveal-delay-1">
+          <span class="contact-block-label">📧 Email</span>
+          <div class="contact-block-val"><a href="mailto:kiwi.goldservices@gmail.com">kiwi.goldservices@gmail.com</a></div>
+        </div>
+        <div class="contact-block reveal reveal-delay-2">
+          <span class="contact-block-label">🕐 Studio Hours</span>
+          <div class="contact-block-val">Monday – Friday: 9am – 6pm<br>Saturday: 9am – 4pm<br>Sunday: By appointment</div>
+        </div>
+      </div>
+
+      <div class="booking-form reveal reveal-delay-1">
+        <h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:300; color:var(--ivory); margin-bottom:2rem;">Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" placeholder="Your name"/></div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="your@email.com"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">Subject</label><input type="text" class="form-input" placeholder="How can we help?"/></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" style="min-height:140px;" placeholder="Tell us more…"></textarea></div>
+        <button class="btn-primary" style="width:100%; font-family:'Jost',sans-serif; padding:1rem; border:none; cursor:pointer;">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#" onclick="showPage('home')">
+          <span class="logo-text">
+            <span class="logo-main"><span class="logo-kiwi">Kiwi</span><span class="logo-gold">gold</span></span>
+            <span class="logo-sub">Photography &nbsp;·&nbsp; Accra, Ghana</span>
+          </span>
+        </a>
+        <p class="footer-tagline">A Ghana-based photography & videography studio covering corporate events, weddings, birthdays and portraits — every frame crafted with intention.</p>
+        <div class="social-row">
+          <a class="social-pill" href="https://www.instagram.com/kiwigoldphotography" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor"/></svg>
+          </a>
+          <a class="social-pill" href="https://wa.me/233275021123" target="_blank" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.52 3.62 1.42 5.12L2 22l5.12-1.5a9.85 9.85 0 0 0 4.92 1.32c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 17.9c-1.6 0-3.1-.43-4.4-1.2l-.32-.19-3.27.96.96-3.18-.2-.32a7.9 7.9 0 0 1-1.27-4.06c0-4.39 3.57-7.96 7.96-7.96 4.39 0 7.96 3.57 7.96 7.96 0 4.4-3.57 7.99-7.96 7.99zm4.36-5.96c-.24-.12-1.41-.7-1.63-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.04-.33-.04-.45-.08-.12-.5-1.21-.69-1.66-.18-.43-.37-.37-.51-.38-.13-.01-.29-.01-.45-.01-.16 0-.41.06-.63.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.13.16 1.71 2.61 4.15 3.55 2.07.8 2.49.65 2.94.6.45-.05 1.41-.58 1.61-1.13.2-.55.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Navigate</div>
+        <ul class="footer-nav">
+          <li><a href="#" onclick="showPage('home')">Home</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+          <li><a href="#" onclick="showPage('films')">Films</a></li>
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="#" onclick="showPage('pricing')">Pricing</a></li>
+          <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Services</div>
+        <ul class="footer-nav">
+          <li><a href="#">Corporate Events</a></li>
+          <li><a href="#">Weddings & Birthdays</a></li>
+          <li><a href="#">Portrait Sessions</a></li>
+          <li><a href="#">Videography</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <div style="font-size:0.85rem; color:var(--text-dim); line-height:1.9;">
+          Accra, Ghana<br><br>
+          <a href="tel:+233275021123" style="color:var(--text-dim); text-decoration:none; transition:color 0.2s;">+233 27 502 1123</a><br>
+          <a href="mailto:kiwi.goldservices@gmail.com" style="color:var(--text-dim); text-decoration:none; transition:color 0.2s;">kiwi.goldservices@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Kiwigold Photography. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+  <button class="lightbox-next" onclick="lightboxNav(1)">›</button>
+</div>
+
+<!-- FILM MODAL -->
+<div class="film-modal" id="filmModal" onclick="if(event.target===this)closeFilmModal()">
+  <div class="film-modal-inner">
+    <button class="film-modal-close" onclick="closeFilmModal()">✕</button>
+    <img class="film-modal-img" id="filmModalImg" src="" alt=""/>
+    <div class="film-modal-body">
+      <h3 class="film-modal-title" id="filmModalTitle"></h3>
+      <p class="film-modal-text" id="filmModalText"></p>
+      <a class="btn-primary" id="filmModalLink" href="https://www.instagram.com/kiwigoldphotography" target="_blank">Watch on Instagram</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ── MOBILE MENU ── */
+function toggleMobile() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+/* ── PAGE NAVIGATION ── */
+function showPage(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-center a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === id);
+  });
+  window.scrollTo(0, 0);
+  if (id === 'gallery') renderGallery(currentFilter);
+  if (id === 'films') renderFilms();
+  setTimeout(initReveal, 100);
+}
+
+/* ── HERO SLIDESHOW ── */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+function goSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+setInterval(() => goSlide(currentSlide + 1), 6000);
+
+/* ── GALLERY DATA ── */
+const galleryData = [
+  // ── Weddings (Ceremony & Reception) ──
+  { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=700&q=85', cat: 'weddings', caption: 'Eternal Vows' },
+  { src: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=700&q=85', cat: 'weddings', caption: 'Golden Hour Ceremony' },
+  { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=700&q=85', cat: 'weddings', caption: 'Whispering Vows' },
+  { src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=700&q=85', cat: 'weddings', caption: 'First Dance' },
+  { src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=700&q=85', cat: 'weddings', caption: 'Together Forever' },
+  { src: 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=700&q=85', cat: 'weddings', caption: 'Bloom & Bliss' },
+  { src: 'https://images.unsplash.com/photo-1525772764200-be829a350797?w=700&q=85', cat: 'weddings', caption: 'Sacred Promise' },
+  { src: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=700&q=85', cat: 'weddings', caption: 'Bridal Grace' },
+
+  // ── Corporate Events ──
+  { src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=700&q=85', cat: 'corporate', caption: 'Leadership Summit' },
+  { src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=85', cat: 'corporate', caption: 'Panel Discussion' },
+  { src: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=700&q=85', cat: 'corporate', caption: 'Brand Launch' },
+  { src: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=700&q=85', cat: 'corporate', caption: 'Conference Hall' },
+  { src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=700&q=85', cat: 'corporate', caption: 'Networking Session' },
+  { src: 'https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=700&q=85', cat: 'corporate', caption: 'Awards Night' },
+  { src: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=700&q=85', cat: 'corporate', caption: 'Product Showcase' },
+  { src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=700&q=85', cat: 'corporate', caption: 'Team Portrait' },
+
+  // ── Portrait ──
+  { src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85', cat: 'portrait', caption: 'Silk & Shadow' },
+  { src: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=700&q=85', cat: 'portrait', caption: 'Desert Reverie' },
+  { src: 'https://images.unsplash.com/photo-1552642986-ccb41e7059e7?w=700&q=85', cat: 'portrait', caption: 'Urban Elegance' },
+  { src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700&q=85', cat: 'portrait', caption: 'Avant Garde' },
+  { src: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=700&q=85', cat: 'portrait', caption: 'Couture Dreams' },
+  { src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=700&q=85', cat: 'portrait', caption: 'City Chic' },
+  { src: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=700&q=85', cat: 'portrait', caption: 'Velvet Hour' },
+  { src: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=700&q=85', cat: 'portrait', caption: 'Editorial Edge' },
+
+  // ── Engagement ──
+  { src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=85', cat: 'engagement', caption: 'Strength & Grace' },
+  { src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=700&q=85', cat: 'engagement', caption: 'Quiet Power' },
+  { src: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=700&q=85', cat: 'engagement', caption: 'The Proposal' },
+  { src: 'https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?w=700&q=85', cat: 'engagement', caption: 'Timeless' },
+  { src: 'https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?w=700&q=85', cat: 'engagement', caption: 'Inner Light' },
+  { src: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=700&q=85', cat: 'engagement', caption: 'Soft Focus' },
+  { src: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=700&q=85', cat: 'engagement', caption: 'Ring Reveal' },
+
+  // ── Moments ──
+  { src: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=700&q=85', cat: 'moments', caption: 'Quiet Details' },
+  { src: 'https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?w=700&q=85', cat: 'moments', caption: 'In Between' },
+  { src: 'https://images.unsplash.com/photo-1521543387200-acb02e3a47b1?w=700&q=85', cat: 'moments', caption: 'Stolen Glances' },
+  { src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=700&q=85', cat: 'moments', caption: 'Behind the Veil' },
+  { src: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=700&q=85', cat: 'moments', caption: 'Candid Joy' },
+  { src: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=700&q=85', cat: 'moments', caption: 'Family & Love' },
+];
+
+const galleryTagLabels = {
+  corporate: 'Corporate', weddings: 'Weddings', portrait: 'Portrait',
+  engagement: 'Engagement', moments: 'Moments'
+};
+
+let currentFilter = 'all';
+let lightboxIndex = 0;
+let lightboxItems = [];
+
+function renderGallery(filter) {
+  currentFilter = filter;
+  const items = filter === 'all' ? galleryData : galleryData.filter(i => i.cat === filter);
+  lightboxItems = items;
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = items.map((item, idx) => `
+    <div class="photo-card" onclick="openLightbox(${idx})">
+      <button class="card-nav card-nav-prev" onclick="event.stopPropagation(); galleryCardNav(${idx}, -1)" aria-label="Previous image">&#8249;</button>
+      <button class="card-nav card-nav-next" onclick="event.stopPropagation(); galleryCardNav(${idx}, 1)" aria-label="Next image">&#8250;</button>
+      <img src="${item.src}" alt="${item.caption}" loading="lazy"/>
+      <div class="photo-overlay"><span class="photo-caption">${item.caption}</span></div>
+    </div>
+  `).join('');
+}
+
+function filterGallery(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery(filter);
+}
+
+/* ── FILMS DATA ── */
+const filmsData = [
+  { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=85', cat: 'Highlight Film', title: 'Ama & Kojo — The Wedding Film', duration: '4:32', text: 'A cinematic highlight reel from a beautiful Accra wedding, set to a score that carries every laugh and tear of the day.' },
+  { src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=85', cat: 'Full Film', title: 'The Asante Wedding — Full Story', duration: '18:14', text: 'The complete wedding film, from morning preparations to the final dance, told exactly as it unfolded.' },
+  { src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=85', cat: 'Engagement Film', title: 'Efua & Kwame — Say Yes', duration: '2:48', text: 'A short, joyful film capturing the moment a question became a promise.' },
+  { src: 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=800&q=85', cat: 'Highlight Film', title: 'Golden Hour Vows', duration: '3:57', text: 'Soft light, quiet vows, and a celebration that carried on long after sunset.' },
+  { src: 'https://images.unsplash.com/photo-1525772764200-be829a350797?w=800&q=85', cat: 'Destination Film', title: 'Coastal Wedding — Cape Coast', duration: '5:21', text: 'Ocean breeze, white sand, and a love story told against the Ghanaian coastline.' },
+  { src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=85', cat: 'Reception Film', title: 'The Reception — Joy in Motion', duration: '3:10', text: 'Dance floor energy, toasts, and the kind of celebration that lingers in memory.' },
+];
+
+function renderFilms() {
+  const grid = document.getElementById('filmsGrid');
+  grid.innerHTML = filmsData.map((f, idx) => `
+    <div class="film-card" onclick="openFilmModal(${idx})">
+      <img src="${f.src}" alt="${f.title}" loading="lazy"/>
+      <div class="film-overlay">
+        <div class="film-top"><span class="film-duration">${f.duration}</span></div>
+        <div class="film-play"></div>
+        <div class="film-bottom">
+          <div class="film-cat">${f.cat}</div>
+          <div class="film-title">${f.title}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function openFilmModal(idx) {
+  const f = filmsData[idx];
+  document.getElementById('filmModalImg').src = f.src;
+  document.getElementById('filmModalTitle').textContent = f.title;
+  document.getElementById('filmModalText').textContent = f.text;
+  document.getElementById('filmModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeFilmModal() {
+  document.getElementById('filmModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── LIGHTBOX ── */
+function openLightbox(idx) {
+  lightboxIndex = idx;
+  document.getElementById('lightboxImg').src = lightboxItems[idx].src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lightboxNav(dir) {
+  lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length;
+  document.getElementById('lightboxImg').src = lightboxItems[lightboxIndex].src;
+}
+
+/* ── GALLERY CARD IN-PLACE NAV ── */
+function galleryCardNav(idx, dir) {
+  const total = lightboxItems.length;
+  const newIdx = (idx + dir + total) % total;
+  const cards = document.querySelectorAll('#galleryGrid .photo-card');
+  // Swap the image and caption on the current card
+  const card = cards[idx];
+  const img = card.querySelector('img');
+  const caption = card.querySelector('.photo-caption');
+  const item = lightboxItems[newIdx];
+  // Fade out → swap → fade in
+  img.style.transition = 'opacity 0.25s';
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = item.src;
+    img.alt = item.caption;
+    if (caption) caption.textContent = item.caption;
+    // Update arrow onclick indices to track the new item
+    card.querySelector('.card-nav-prev').setAttribute('onclick', `event.stopPropagation(); galleryCardNav(${idx}, -1)`);
+    card.querySelector('.card-nav-next').setAttribute('onclick', `event.stopPropagation(); galleryCardNav(${idx}, 1)`);
+    card.setAttribute('onclick', `openLightbox(${newIdx})`);
+    img.style.opacity = '1';
+  }, 220);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLightbox(); closeFilmModal(); }
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+});
+
+/* ── SCROLL REVEAL ── */
+function initReveal() {
+  const els = document.querySelectorAll('.reveal:not(.visible)');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  els.forEach(el => observer.observe(el));
+}
+initReveal();
+
+/* ── COUNTER ANIMATION ── */
+function animateCounters() {
+  document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 60));
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current + suffix;
+      if (current >= target) { clearInterval(timer); }
+    }, 25);
+  });
+}
+const statsObserver = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { animateCounters(); statsObserver.disconnect(); }
+}, { threshold: 0.5 });
+const statsEl = document.querySelector('.stats-strip');
+if (statsEl) statsObserver.observe(statsEl);
+
+/* ── BOOKING WHATSAPP ── */
+function sendWhatsApp(e) {
+  e.preventDefault();
+  const name = (document.getElementById('bkFirstName').value + ' ' + document.getElementById('bkLastName').value).trim();
+  const phone = document.getElementById('bkPhone').value;
+  const type = document.getElementById('bkType').value;
+  const date = document.getElementById('bkDate').value;
+  const msg = document.getElementById('bkMessage').value;
+  const text = `Hello Kiwigold Photography! I'd like to book a session.\n\n*Name:* ${name || 'N/A'}\n*Phone:* ${phone || 'N/A'}\n*Session Type:* ${type || 'N/A'}\n*Date:* ${date || 'N/A'}\n*Message:* ${msg || 'N/A'}`;
+  window.open('https://wa.me/233275021123?text=' + encodeURIComponent(text), '_blank');
+}
+function submitBooking() {
+  alert('Thank you! We\'ll be in touch within 24 hours. ✦');
+}
+/* ── SPLASH SCREEN ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hidden');
+    setTimeout(() => { document.getElementById('splash').style.display = 'none'; }, 900);
+  }, 1800);
+});
+
+/* ── PAGE TRANSITION ── */
+const origShowPage = showPage;
+window.showPage = function(id) {
+  const t = document.getElementById('pageTransition');
+  t.classList.add('flash');
+  setTimeout(() => {
+    origShowPage(id);
+    t.classList.remove('flash');
+  }, 180);
+};
+
+/* ── BACK TO TOP ── */
+const backTopBtn = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+</script>
+</body>
+</html>
