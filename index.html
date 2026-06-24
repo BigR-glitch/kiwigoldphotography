@@ -170,10 +170,10 @@ section.active { display: block; }
 }
 
 /* Hero slides backgrounds */
-.hero-slide:nth-child(1) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1800&q=85'); }
-.hero-slide:nth-child(2) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1800&q=85'); }
-.hero-slide:nth-child(3) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1800&q=85'); }
-.hero-slide:nth-child(4) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1800&q=85'); }
+.hero-slide:nth-child(1) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222525/_A9A0102_ijxvcf.jpg'); }
+.hero-slide:nth-child(2) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221603/0A9A0620_zedyyq.jpg'); }
+.hero-slide:nth-child(3) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221616/_A9A6295_iq9dvi.jpg'); }
+.hero-slide:nth-child(4) { background-image: linear-gradient(135deg, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.15) 100%), url('https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221596/0A9A1392_tn0wjh.jpg'); }
 
 .hero-vignette {
   position: absolute; inset: 0;
@@ -1393,7 +1393,7 @@ footer {
 
 <!-- ══ GALLERY ══ -->
 <section id="gallery">
-  <div class="gallery-header reveal">
+ <div class="gallery-header reveal">
     <div class="section-label" style="justify-content:center">Our Portfolio</div>
     <h2 class="section-title" style="text-align:center; margin-bottom:0">The <em>Gallery</em></h2>
     <div class="gallery-filters">
@@ -1401,7 +1401,6 @@ footer {
       <button class="filter-btn" onclick="filterGallery('corporate', this)">Corporate</button>
       <button class="filter-btn" onclick="filterGallery('weddings', this)">Weddings</button>
       <button class="filter-btn" onclick="filterGallery('portrait', this)">Portrait</button>
-      <button class="filter-btn" onclick="filterGallery('engagement', this)">Engagement</button>
       <button class="filter-btn" onclick="filterGallery('moments', this)">Moments</button>
     </div>
   </div>
@@ -1763,56 +1762,50 @@ setInterval(() => goSlide(currentSlide + 1), 6000);
 /* ── GALLERY DATA ── */
 const galleryData = [
   // ── Weddings (Ceremony & Reception) ──
-  { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=700&q=85', cat: 'weddings', caption: 'Eternal Vows' },
-  { src: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=700&q=85', cat: 'weddings', caption: 'Golden Hour Ceremony' },
-  { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=700&q=85', cat: 'weddings', caption: 'Whispering Vows' },
-  { src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=700&q=85', cat: 'weddings', caption: 'First Dance' },
-  { src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=700&q=85', cat: 'weddings', caption: 'Together Forever' },
-  { src: 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=700&q=85', cat: 'weddings', caption: 'Bloom & Bliss' },
-  { src: 'https://images.unsplash.com/photo-1525772764200-be829a350797?w=700&q=85', cat: 'weddings', caption: 'Sacred Promise' },
-  { src: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=700&q=85', cat: 'weddings', caption: 'Bridal Grace' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221617/0A9A462b2_dzki1h.jpg', cat: 'weddings', caption: 'Eternal Vows' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222745/0A9A0100_zot4kz.jpg', cat: 'weddings', caption: 'Golden Hour Ceremony' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782233139/_A9A2639_ckwt7m.jpg', cat: 'weddings', caption: 'Whispering Vows' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782233114/0A9A1534_l7moek.jpg', cat: 'weddings', caption: 'First Dance' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222550/0A9A5316_rrvhyd.jpg', cat: 'weddings', caption: 'Together Forever' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782233130/_A9A0137_iedjdj.jpg', cat: 'weddings', caption: 'Bloom & Bliss' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221596/0A9A1392_tn0wjh.jpg', cat: 'weddings', caption: 'Sacred Promise' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782233123/IMG_6727_rwsde9.jpg', cat: 'weddings', caption: 'Bridal Grace' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782261678/0A9A7566_rn4fdg.jpg', cat: 'weddings', caption: 'The Proposal' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782261667/_A9A4666_emye5y.jpg', cat: 'weddings', caption: 'Timeless' },
 
   // ── Corporate Events ──
-  { src: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=700&q=85', cat: 'corporate', caption: 'Leadership Summit' },
-  { src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=85', cat: 'corporate', caption: 'Panel Discussion' },
-  { src: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=700&q=85', cat: 'corporate', caption: 'Brand Launch' },
-  { src: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=700&q=85', cat: 'corporate', caption: 'Conference Hall' },
-  { src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=700&q=85', cat: 'corporate', caption: 'Networking Session' },
-  { src: 'https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=700&q=85', cat: 'corporate', caption: 'Awards Night' },
-  { src: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=700&q=85', cat: 'corporate', caption: 'Product Showcase' },
-  { src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=700&q=85', cat: 'corporate', caption: 'Team Portrait' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782266237/KG013673_f8khjf.jpg', cat: 'corporate', caption: 'Leadership Summit' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782264972/8F5A0087_iugy74.jpg', cat: 'corporate', caption: 'Panel Discussion' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782265872/_A9A9395_ij5rvj.jpg', cat: 'corporate', caption: 'Launch' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782265701/8F5A0282_icialf.jpg', cat: 'corporate', caption: 'Product Showcase' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782264969/_A9A6239_ehgflg.jpg', cat: 'corporate', caption: 'Team Portrait' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782264971/_A9A6221_rdvzng.jpg', cat: 'corporate', caption: 'Soft Focus' },
 
   // ── Portrait ──
-  { src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=700&q=85', cat: 'portrait', caption: 'Silk & Shadow' },
-  { src: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=700&q=85', cat: 'portrait', caption: 'Desert Reverie' },
-  { src: 'https://images.unsplash.com/photo-1552642986-ccb41e7059e7?w=700&q=85', cat: 'portrait', caption: 'Urban Elegance' },
-  { src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700&q=85', cat: 'portrait', caption: 'Avant Garde' },
-  { src: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=700&q=85', cat: 'portrait', caption: 'Couture Dreams' },
-  { src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=700&q=85', cat: 'portrait', caption: 'City Chic' },
-  { src: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=700&q=85', cat: 'portrait', caption: 'Velvet Hour' },
-  { src: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=700&q=85', cat: 'portrait', caption: 'Editorial Edge' },
-
-  // ── Engagement ──
-  { src: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=85', cat: 'engagement', caption: 'Strength & Grace' },
-  { src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=700&q=85', cat: 'engagement', caption: 'Quiet Power' },
-  { src: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=700&q=85', cat: 'engagement', caption: 'The Proposal' },
-  { src: 'https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?w=700&q=85', cat: 'engagement', caption: 'Timeless' },
-  { src: 'https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?w=700&q=85', cat: 'engagement', caption: 'Inner Light' },
-  { src: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=700&q=85', cat: 'engagement', caption: 'Soft Focus' },
-  { src: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=700&q=85', cat: 'engagement', caption: 'Ring Reveal' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222550/0A9A826b4_fi36kb.jpg', cat: 'portrait', caption: 'Silk & Shadow' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222526/0A9A99543_tr0n9s.jpg', cat: 'portrait', caption: 'Desert Reverie' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782263706/_A9A9509_gmbvp3.jpg', cat: 'portrait', caption: 'Urban Elegance' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222581/0A9A0142_oixqp0.jpg', cat: 'portrait', caption: 'Avant Garde' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782263707/0A9A3519_1_rgwy1c.jpg', cat: 'portrait', caption: 'Couture Dreams' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782223250/0A9A4269_ufh07e.jpg', cat: 'portrait', caption: 'City Chic' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222524/_A9A0911_pnzzit.jpg', cat: 'portrait', caption: 'Honor' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221624/_A9A1089_jgisfe.jpg', cat: 'portrait', caption: 'Editorial Edge' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782263700/0A9A6645_hplbqu.jpg', cat: 'portrait', caption: 'Strength & Grace' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782264368/0A9A3852_biuufr.jpg', cat: 'portrait', caption: 'Quiet Power' },
 
   // ── Moments ──
-  { src: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=700&q=85', cat: 'moments', caption: 'Quiet Details' },
-  { src: 'https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?w=700&q=85', cat: 'moments', caption: 'In Between' },
-  { src: 'https://images.unsplash.com/photo-1521543387200-acb02e3a47b1?w=700&q=85', cat: 'moments', caption: 'Stolen Glances' },
-  { src: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=700&q=85', cat: 'moments', caption: 'Behind the Veil' },
-  { src: 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=700&q=85', cat: 'moments', caption: 'Candid Joy' },
-  { src: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=700&q=85', cat: 'moments', caption: 'Family & Love' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222570/0A9A0202_jxlhz9.jpg', cat: 'moments', caption: 'Quiet Details' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221599/_A9A4221_kmijin.jpg', cat: 'moments', caption: 'Endings' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782262873/_A9A4437_gow97x.jpg', cat: 'moments', caption: 'voices of love' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782221616/_A9A6295_iq9dvi.jpg', cat: 'moments', caption: 'Beautiful Glance' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222542/0A9A0274_iiea8p.jpg', cat: 'moments', caption: 'Candid Joy' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782262322/_A9A1584_tri6hu.jpg', cat: 'moments', caption: 'Family & Love' },
+  { src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1782222533/0A9A7311_xukzfs.jpg', cat: 'moments', caption: 'Grads' },
 ];
 
 const galleryTagLabels = {
   corporate: 'Corporate', weddings: 'Weddings', portrait: 'Portrait',
-  engagement: 'Engagement', moments: 'Moments'
+  moments: 'Moments'
 };
 
 let currentFilter = 'all';
