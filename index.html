@@ -1639,7 +1639,7 @@ footer {
         </div>
       </div>
       <div class="pricing-contact-line">
-        Thank you for choosing <span>KIWIGOLD PHOTOGRAPHY</span> 
+        Thank you for choosing <span>KIWIGOLD PHOTOGRAPHY</span> — 0558264132
       </div>
     </div>
   </div>
@@ -1870,6 +1870,8 @@ function showPage(id) {
   window.scrollTo(0, 0);
   if (id === 'gallery') renderGallery(currentFilter);
   if (id === 'films') renderFilms();
+  /* keep the URL in sync so a refresh (or shared link) lands on this page */
+  history.replaceState(null, '', id === 'home' ? window.location.pathname + window.location.search : '#' + id);
   setTimeout(initReveal, 100);
 }
 
@@ -2120,6 +2122,17 @@ const backTopBtn = document.getElementById('backTop');
 window.addEventListener('scroll', () => {
   backTopBtn.classList.toggle('visible', window.scrollY > 400);
 });
+
+/* ── RESTORE PAGE ON LOAD/REFRESH ── */
+const validPages = ['home', 'gallery', 'films', 'about', 'pricing', 'book', 'contact'];
+function syncPageFromHash() {
+  const id = window.location.hash.replace('#', '');
+  if (validPages.includes(id) && id !== 'home') {
+    showPage(id);
+  }
+}
+syncPageFromHash();
+window.addEventListener('hashchange', syncPageFromHash);
 </script>
 </body>
 </html>
