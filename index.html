@@ -671,6 +671,55 @@ section.active { display: block; }
 .plan-feature .check { color: var(--champagne); font-size: 0.7rem; }
 .plan-feature .cross { color: var(--text-dim); opacity: 0.4; font-size: 0.7rem; }
 
+/* ── PRICING: dual price + extras + notes (added) ── */
+.pricing-topnote {
+  text-align: center; font-size: 0.78rem; letter-spacing: 0.08em;
+  color: var(--text-dim); margin: -1.5rem auto 2.5rem; max-width: 600px;
+  font-style: italic;
+}
+.pricing-topnote em { color: var(--champagne); font-style: normal; }
+
+.plan-price-dual { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+.price-option {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding-bottom: 0.7rem; border-bottom: 1px dashed rgba(212,175,110,0.18);
+}
+.price-option:last-child { border-bottom: none; padding-bottom: 0; }
+.price-option-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); }
+.price-option-value { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 300; color: var(--ivory); }
+.price-option-value .cur { font-size: 1rem; color: var(--champagne); margin-right: 0.15rem; }
+
+.plan-extra-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; color: var(--champagne-lt);
+  background: rgba(212,175,110,0.08); border: 1px solid rgba(212,175,110,0.2);
+  padding: 0.5rem 0.9rem; border-radius: 1px; margin-bottom: 2rem;
+}
+
+.pricing-notes {
+  max-width: 1100px; margin: 4rem auto 0;
+  background: var(--obsidian2); border: 1px solid rgba(212,175,110,0.14);
+  border-radius: 2px; padding: 2.8rem 3rem;
+}
+.pricing-notes-title {
+  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 300;
+  font-size: 1.3rem; color: var(--champagne); margin-bottom: 1.8rem;
+}
+.notes-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem 3rem;
+}
+@media (max-width: 800px) { .notes-grid { grid-template-columns: 1fr; } }
+.note-item { display: flex; gap: 1rem; align-items: flex-start; }
+.note-icon { font-size: 1rem; color: var(--champagne); margin-top: 0.15rem; flex-shrink: 0; }
+.note-item p { font-size: 0.85rem; line-height: 1.6; color: var(--text-dim); }
+.note-item p strong { color: var(--text); font-weight: 500; }
+.pricing-contact-line {
+  margin-top: 2.2rem; padding-top: 2rem; border-top: 1px solid rgba(212,175,110,0.12);
+  text-align: center; font-size: 0.9rem; color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.pricing-contact-line span { color: var(--champagne); letter-spacing: 0.1em; }
+
 /* ── BOOK ── */
 #book { display: none; padding: 6rem 4rem 4rem; }
 #book.active { display: block; }
@@ -1312,15 +1361,15 @@ footer {
             <h3>Corporate Events</h3>
             <p>Conferences, launches, summits and brand activations — documented with a sharp, professional eye for use across your marketing and PR.</p>
           </div>
-          <span class="service-price">From GH₵ 1,200</span>
+          <span class="service-price">From GH₵ 1,000</span>
         </div>
         <div class="service-item reveal reveal-delay-1">
           <span class="service-num">02</span>
           <div class="service-info">
-            <h3>Weddings & Birthdays</h3>
+            <h3>Weddings & Engagements</h3>
             <p>Full coverage of ceremonies, receptions and celebrations — every laugh, toast and quiet moment in between, delivered as a curated gallery.</p>
           </div>
-          <span class="service-price">From GH₵ 2,500</span>
+          <span class="service-price">From GH₵ 4,500</span>
         </div>
         <div class="service-item reveal reveal-delay-2">
           <span class="service-num">03</span>
@@ -1328,7 +1377,7 @@ footer {
             <h3>Portrait Sessions</h3>
             <p>Studio or location portraits for individuals, couples and families — relaxed direction, polished retouching, timeless results.</p>
           </div>
-          <span class="service-price">From GH₵ 600</span>
+          <span class="service-price">From GH₵ 1,500</span>
         </div>
         <div class="service-item reveal reveal-delay-3">
           <span class="service-num">04</span>
@@ -1336,7 +1385,7 @@ footer {
             <h3>Videography</h3>
             <p>Cinematic highlight reels and event films, beautifully edited to relive the day forever. See our videography page <a href="https://www.instagram.com/play_est" target="_blank" style="color:var(--champagne); text-decoration:none;">@play_est</a>.</p>
           </div>
-          <span class="service-price">From GH₵ 1,800</span>
+          <span class="service-price">From GH₵ 3,500</span>
         </div>
       </div>
     </div>
@@ -1452,68 +1501,145 @@ footer {
   <div style="max-width:1100px; margin:0 auto;">
     <div class="section-label reveal">Transparent Pricing</div>
     <h2 class="section-title reveal reveal-delay-1">Choose Your <em>Experience</em></h2>
-    <div class="pricing-grid">
-      <div class="pricing-card reveal">
-        <span class="plan-icon">🌿</span>
-        <div class="plan-name">Essentials</div>
-        <div class="plan-tagline">Perfect for portrait sessions & quick shoots</div>
-        <div class="plan-price">
-          <span class="plan-currency">GH₵</span>
-          <span class="plan-amount">800</span>
-          <span class="plan-unit">/ session</span>
-        </div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li class="plan-feature"><span class="check">✦</span> 2-hour studio session</li>
-          <li class="plan-feature"><span class="check">✦</span> 1 outfit / look</li>
-          <li class="plan-feature"><span class="check">✦</span> 20 edited digital images</li>
-          <li class="plan-feature"><span class="check">✦</span> Online gallery delivery</li>
-          <li class="plan-feature"><span class="cross">—</span> <span style="opacity:0.4">Location shoot</span></li>
-          <li class="plan-feature"><span class="cross">—</span> <span style="opacity:0.4">Print products</span></li>
-        </ul>
-        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
-      </div>
+    <p class="pricing-topnote reveal">All prices listed are <em>per single person</em>, unless otherwise stated.</p>
 
-      <div class="pricing-card featured-plan reveal reveal-delay-1">
-        <div class="plan-badge">Most Popular</div>
-        <span class="plan-icon">✨</span>
-        <div class="plan-name">Signature</div>
-        <div class="plan-tagline">Our most sought-after experience</div>
-        <div class="plan-price">
-          <span class="plan-currency">GH₵</span>
-          <span class="plan-amount">2,200</span>
-          <span class="plan-unit">/ session</span>
+    <div class="pricing-grid">
+
+      <div class="pricing-card featured-plan reveal">
+        <div class="plan-badge">Most Booked</div>
+        <span class="plan-icon">🎂</span>
+        <div class="plan-name">Birthday Shoot</div>
+        <div class="plan-tagline">2 outfits · 20 edited images, 6 highly edited</div>
+        <div class="plan-price-dual">
+          <div class="price-option">
+            <span class="price-option-label">In Studio</span>
+            <span class="price-option-value"><span class="cur">GH₵</span>1,000</span>
+          </div>
+          <div class="price-option">
+            <span class="price-option-label">Outdoor / Off-Studio</span>
+            <span class="price-option-value"><span class="cur">GH₵</span>1,500</span>
+          </div>
         </div>
+        <div class="plan-extra-tag">✦ Extra outfit: GH₵150 each</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li class="plan-feature"><span class="check">✦</span> Full-day session (8 hours)</li>
-          <li class="plan-feature"><span class="check">✦</span> Multiple looks / locations</li>
-          <li class="plan-feature"><span class="check">✦</span> 60 fully edited images</li>
-          <li class="plan-feature"><span class="check">✦</span> Online gallery + USB</li>
-          <li class="plan-feature"><span class="check">✦</span> Styling consultation</li>
-          <li class="plan-feature"><span class="check">✦</span> 1 fine-art print included</li>
+          <li class="plan-feature"><span class="check">✦</span> 2 outfit changes</li>
+          <li class="plan-feature"><span class="check">✦</span> 20 edited photos (6 highly edited)</li>
+          <li class="plan-feature"><span class="check">✦</span> 10 working days delivery</li>
         </ul>
         <a class="btn-primary" style="display:block; text-align:center;" href="#" onclick="showPage('book')">Book Now</a>
       </div>
 
-      <div class="pricing-card reveal reveal-delay-2">
-        <span class="plan-icon">👑</span>
-        <div class="plan-name">Bespoke</div>
-        <div class="plan-tagline">Tailored for corporate events & large bookings</div>
+      <div class="pricing-card reveal reveal-delay-1">
+        <span class="plan-icon">👪</span>
+        <div class="plan-name">Family Session</div>
+        <div class="plan-tagline">Group of 3–5 people</div>
         <div class="plan-price">
           <span class="plan-currency">GH₵</span>
-          <span class="plan-amount" style="font-size:2rem; padding-top:0.8rem">Custom</span>
+          <span class="plan-amount">2,000</span>
         </div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li class="plan-feature"><span class="check">✦</span> Unlimited session time</li>
-          <li class="plan-feature"><span class="check">✦</span> Full creative direction</li>
-          <li class="plan-feature"><span class="check">✦</span> Unlimited edited images</li>
-          <li class="plan-feature"><span class="check">✦</span> Luxury album + prints</li>
-          <li class="plan-feature"><span class="check">✦</span> Dedicated project manager</li>
-          <li class="plan-feature"><span class="check">✦</span> Multi-photographer team available</li>
+          <li class="plan-feature"><span class="check">✦</span> Group of 3 – 5 people</li>
+          <li class="plan-feature"><span class="check">✦</span> One outfit change</li>
+          <li class="plan-feature"><span class="check">✦</span> 10 working days delivery</li>
         </ul>
-        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('contact')">Contact Us</a>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <span class="plan-icon">🤰</span>
+        <div class="plan-name">Maternity</div>
+        <div class="plan-tagline">Celebrating the glow</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount">2,000</span>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> Full maternity session</li>
+          <li class="plan-feature"><span class="check">✦</span> Professionally edited gallery</li>
+          <li class="plan-feature"><span class="check">✦</span> 10 working days delivery</li>
+        </ul>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <span class="plan-icon">🧸</span>
+        <div class="plan-name">Babies & Kids</div>
+        <div class="plan-tagline">Babies, toddlers, kids & young adults</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount">1,500</span>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> Babies, toddlers & kids</li>
+          <li class="plan-feature"><span class="check">✦</span> Young adult sessions</li>
+          <li class="plan-feature"><span class="check">✦</span> 10 working days delivery</li>
+        </ul>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <span class="plan-icon">💼</span>
+        <div class="plan-name">Business & Corporate</div>
+        <div class="plan-tagline">Polished, professional looks</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount">1,500</span>
+        </div>
+        <div class="plan-extra-tag">✦ Extra outfit: GH₵300 each</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> Corporate headshot look</li>
+          <li class="plan-feature"><span class="check">✦</span> Professionally edited gallery</li>
+          <li class="plan-feature"><span class="check">✦</span> 10 working days delivery</li>
+        </ul>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <span class="plan-icon">🧵</span>
+        <div class="plan-name">Kente Dressing</div>
+        <div class="plan-tagline">A celebration of heritage</div>
+        <div class="plan-price">
+          <span class="plan-currency">GH₵</span>
+          <span class="plan-amount">750</span>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="plan-feature"><span class="check">✦</span> Traditional Kente styling</li>
+          <li class="plan-feature"><span class="check">✦</span> Professionally edited gallery</li>
+          <li class="plan-feature"><span class="check">✦</span> 10 working days delivery</li>
+        </ul>
+        <a class="btn-outline" style="display:block; text-align:center; border-color:rgba(212,175,110,0.3); color:var(--champagne);" href="#" onclick="showPage('book')">Book Now</a>
+      </div>
+
+    </div>
+
+    <div class="pricing-notes reveal">
+      <div class="pricing-notes-title">Good to Know</div>
+      <div class="notes-grid">
+        <div class="note-item">
+          <span class="note-icon">⏱</span>
+          <p><strong>Standard delivery</strong> is 10 working days. Need it sooner? <strong>Express delivery</strong> (2–3 days) is available for an additional GH₵300.</p>
+        </div>
+        <div class="note-item">
+          <span class="note-icon">💳</span>
+          <p>A <strong>50% deposit</strong> is required to secure your date and time slot.</p>
+        </div>
+        <div class="note-item">
+          <span class="note-icon">🕒</span>
+          <p>Please arrive on time. Lateness of <strong>30 minutes or more</strong> attracts a GH₵50/hour fee, or your booking may be cancelled with the deposit forfeited.</p>
+        </div>
+        <div class="note-item">
+          <span class="note-icon">✦</span>
+          <p><strong>Last-minute cancellations</strong> will result in loss of the deposit paid.</p>
+        </div>
+      </div>
+      <div class="pricing-contact-line">
+        Thank you for choosing <span>KIWIGOLD PHOTOGRAPHY</span> 
       </div>
     </div>
   </div>
