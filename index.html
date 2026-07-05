@@ -455,8 +455,21 @@ section.active { display: block; }
 }
 .film-card img {
   width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.9s var(--transition), filter 0.5s;
+  transition: transform 0.9s var(--transition), filter 0.5s, opacity 0.6s;
   filter: brightness(0.62) saturate(0.95);
+  opacity: 0; /* fades in once the Instagram cover loads */
+}
+.film-card img.loaded { opacity: 1; }
+.film-card.thumb-loading::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(110deg, var(--obsidian3) 8%, rgba(212,175,110,0.08) 18%, var(--obsidian3) 33%);
+  background-size: 200% 100%;
+  animation: filmShimmer 1.6s linear infinite;
+}
+@keyframes filmShimmer { to { background-position-x: -200%; } }
+.film-card.thumb-failed {
+  background: linear-gradient(150deg, var(--obsidian3), var(--obsidian2, #1a1a1a));
 }
 .film-card:hover img { transform: scale(1.06); filter: brightness(0.45) saturate(1.05); }
 .film-overlay {
@@ -1970,21 +1983,51 @@ function filterGallery(filter, btn) {
   renderGallery(filter);
 }
 
-/* ── FILMS DATA ── */
+/* ── FILMS DATA ──
+   Just drop the Instagram reel/post link in `ig` — the cover photo is pulled
+   automatically from Instagram itself. `src` is optional: only set it if you
+   want to force a specific cover instead of the auto-fetched one. */
 const filmsData = [
-  { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=85', cat: 'Highlight Film', title: 'Ama & Kojo — The Wedding Film', duration: '4:32', text: 'A cinematic highlight reel from a beautiful Accra wedding, set to a score that carries every laugh and tear of the day.' },
-  { src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=85', cat: 'Full Film', title: 'The Asante Wedding — Full Story', duration: '18:14', text: 'The complete wedding film, from morning preparations to the final dance, told exactly as it unfolded.' },
-  { src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=85', cat: 'Engagement Film', title: 'Efua & Kwame — Say Yes', duration: '2:48', text: 'A short, joyful film capturing the moment a question became a promise.' },
-  { src: 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?w=800&q=85', cat: 'Highlight Film', title: 'Golden Hour Vows', duration: '3:57', text: 'Soft light, quiet vows, and a celebration that carried on long after sunset.' },
-  { src: 'https://images.unsplash.com/photo-1525772764200-be829a350797?w=800&q=85', cat: 'Destination Film', title: 'Coastal Wedding — Cape Coast', duration: '5:21', text: 'Ocean breeze, white sand, and a love story told against the Ghanaian coastline.' },
-  { src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=85', cat: 'Reception Film', title: 'The Reception — Joy in Motion', duration: '3:10', text: 'Dance floor energy, toasts, and the kind of celebration that lingers in memory.' },
+  { ig: 'https://www.instagram.com/reel/REPLACE_ME_1/', cat: 'Highlight Film', title: 'Ama & Kojo — The Wedding Film', duration: '4:32', text: 'A cinematic highlight reel from a beautiful Accra wedding, set to a score that carries every laugh and tear of the day.' },
+  { ig: 'https://www.instagram.com/reel/REPLACE_ME_2/', cat: 'Full Film', title: 'The Asante Wedding — Full Story', duration: '18:14', text: 'The complete wedding film, from morning preparations to the final dance, told exactly as it unfolded.' },
+  { ig: 'https://www.instagram.com/reel/REPLACE_ME_3/', cat: 'Engagement Film', title: 'Efua & Kwame — Say Yes', duration: '2:48', text: 'A short, joyful film capturing the moment a question became a promise.' },
+  { ig: 'https://www.instagram.com/reel/REPLACE_ME_4/', cat: 'Highlight Film', title: 'Golden Hour Vows', duration: '3:57', text: 'Soft light, quiet vows, and a celebration that carried on long after sunset.' },
+  { ig: 'https://www.instagram.com/reel/REPLACE_ME_5/', cat: 'Destination Film', title: 'Coastal Wedding — Cape Coast', duration: '5:21', text: 'Ocean breeze, white sand, and a love story told against the Ghanaian coastline.' },
+  { ig: 'https://www.instagram.com/reel/REPLACE_ME_6/', cat: 'Reception Film', title: 'The Reception — Joy in Motion', duration: '3:10', text: 'Dance floor energy, toasts, and the kind of celebration that lingers in memory.' },
 ];
+
+/* Cache fetched thumbnails in localStorage for 7 days so we don't hit the
+   API (and Instagram) on every page load. */
+const IG_THUMB_TTL = 7 * 24 * 60 * 60 * 1000;
+function getCachedThumb(ig) {
+  try {
+    const raw = localStorage.getItem('igThumb:' + ig);
+    if (!raw) return null;
+    const { url, ts } = JSON.parse(raw);
+    if (Date.now() - ts > IG_THUMB_TTL) return null;
+    return url;
+  } catch { return null; }
+}
+function setCachedThumb(ig, url) {
+  try { localStorage.setItem('igThumb:' + ig, JSON.stringify({ url, ts: Date.now() })); } catch {}
+}
+
+async function fetchIgThumb(ig) {
+  const cached = getCachedThumb(ig);
+  if (cached) return cached;
+  const res = await fetch('/api/ig-thumb?url=' + encodeURIComponent(ig));
+  if (!res.ok) throw new Error('thumb fetch failed');
+  const data = await res.json();
+  if (!data.thumbnail) throw new Error('no thumbnail returned');
+  setCachedThumb(ig, data.thumbnail);
+  return data.thumbnail;
+}
 
 function renderFilms() {
   const grid = document.getElementById('filmsGrid');
   grid.innerHTML = filmsData.map((f, idx) => `
-    <div class="film-card" onclick="openFilmModal(${idx})">
-      <img src="${f.src}" alt="${f.title}" loading="lazy"/>
+    <div class="film-card ${f.src ? '' : 'thumb-loading'}" id="filmCard-${idx}" onclick="openFilmModal(${idx})">
+      <img id="filmImg-${idx}" src="${f.src || ''}" alt="${f.title}" loading="lazy" class="${f.src ? 'loaded' : ''}"/>
       <div class="film-overlay">
         <div class="film-top"><span class="film-duration">${f.duration}</span></div>
         <div class="film-play"></div>
@@ -1995,12 +2038,31 @@ function renderFilms() {
       </div>
     </div>
   `).join('');
+
+  // Auto-fetch Instagram covers for any card that doesn't have a manual src
+  filmsData.forEach((f, idx) => {
+    if (f.src || !f.ig) return;
+    const card = document.getElementById(`filmCard-${idx}`);
+    const img = document.getElementById(`filmImg-${idx}`);
+    fetchIgThumb(f.ig)
+      .then(url => {
+        img.onload = () => { img.classList.add('loaded'); card && card.classList.remove('thumb-loading'); };
+        img.src = url;
+        f.src = url; // cache on the object too, so the modal can reuse it
+      })
+      .catch(() => {
+        // Leave the shimmer placeholder rather than showing a broken image
+        card && card.classList.remove('thumb-loading');
+        card && card.classList.add('thumb-failed');
+      });
+  });
 }
 function openFilmModal(idx) {
   const f = filmsData[idx];
-  document.getElementById('filmModalImg').src = f.src;
+  document.getElementById('filmModalImg').src = f.src || '';
   document.getElementById('filmModalTitle').textContent = f.title;
   document.getElementById('filmModalText').textContent = f.text;
+  document.getElementById('filmModalLink').href = f.ig || document.getElementById('filmModalLink').href;
   document.getElementById('filmModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
