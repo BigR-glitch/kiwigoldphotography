@@ -478,12 +478,6 @@ section.active { display: block; }
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 1.6rem;
 }
-.film-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.film-duration {
-  font-size: 0.62rem; letter-spacing: 0.12em; color: var(--ivory);
-  background: rgba(8,8,8,0.55); border: 1px solid rgba(248,243,236,0.2);
-  padding: 0.3rem 0.7rem; border-radius: 1px;
-}
 .film-play {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   width: 64px; height: 64px; border-radius: 50%;
@@ -1988,12 +1982,12 @@ function filterGallery(filter, btn) {
    automatically from Instagram itself. `src` is optional: only set it if you
    want to force a specific cover instead of the auto-fetched one. */
 const filmsData = [
-  { ig: 'https://www.instagram.com/reel/DRkR1omiCya/', cat: 'Highlight Film', title: 'Ama & Kojo — The Wedding Film', duration: '4:32', text: 'A cinematic highlight reel from a beautiful Accra wedding, set to a score that carries every laugh and tear of the day.' },
-  { ig: 'https://www.instagram.com/reel/DHI7JbHCi3G/', cat: 'Full Film', title: 'The Asante Wedding — Full Story', duration: '18:14', text: 'The complete wedding film, from morning preparations to the final dance, told exactly as it unfolded.' },
-  { ig: 'https://www.instagram.com/reel/DV68rrlNaim/', cat: 'Engagement Film', title: 'Efua & Kwame — Say Yes', duration: '2:48', text: 'A short, joyful film capturing the moment a question became a promise.' },
-  { ig: 'https://www.instagram.com/reel/Cz9EmRzi-aJ/', cat: 'Highlight Film', title: 'Golden Hour Vows', duration: '3:57', text: 'Soft light, quiet vows, and a celebration that carried on long after sunset.' },
-  { ig: 'https://www.instagram.com/reel/C5lk1s0C_26/', cat: 'Destination Film', title: 'Coastal Wedding — Cape Coast', duration: '5:21', text: 'Ocean breeze, white sand, and a love story told against the Ghanaian coastline.' },
-  { ig: 'https://www.instagram.com/reel/DRz8kAUiDvq/', cat: 'Reception Film', title: 'The Reception — Joy in Motion', duration: '3:10', text: 'Dance floor energy, toasts, and the kind of celebration that lingers in memory.' },
+  { ig: 'https://www.instagram.com/reel/DRkR1omiCya/', src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1783345611/Screenshot_2026-07-06_134019_fnagnx.png', cat: 'Full Film', title: 'Sena & Michelle— The Wedding Film', duration: '4:32', text: 'A cinematic highlight reel from a beautiful Accra wedding, set to a score that carries every laugh and tear of the day.' },
+  { ig: 'https://www.instagram.com/reel/DHI7JbHCi3G/', src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1783345610/Screenshot_2026-07-06_133739_ylwngo.png', cat: 'Highlight Film', title: 'A Mother\'s Prayer Seals It All', duration: '18:14', text: 'The complete wedding film, from morning preparations to the final dance, told exactly as it unfolded.' },
+  { ig: 'https://www.instagram.com/reel/DV68rrlNaim/', src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1783345610/Screenshot_2026-07-06_133554_mzhz3t.png', cat: 'Engagement Film', title: 'Prince & Ashley', duration: '2:48', text: 'A short, joyful film capturing the moment a question became a promise.' },
+  { ig: 'https://www.instagram.com/reel/Cz9EmRzi-aJ/', src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1783345610/Screenshot_2026-07-06_133339_dy3xnn.png', cat: 'Highlight Film', title: 'Kwabena 🧡 Priscilla', duration: '3:57', text: 'Soft light, quiet vows, and a celebration that carried on long after sunset.' },
+  { ig: 'https://www.instagram.com/reel/C5lk1s0C_26/', src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1783344119/Screenshot_2026-07-05_011345_cqc7p1.png', cat: 'Destination Film', title: 'Pre-Wedding — Cape Coast', duration: '5:21', text: 'Ocean breeze, white sand, and a love story told against the Ghanaian coastline.' },
+  { ig: 'https://www.instagram.com/reel/DRz8kAUiDvq/', src: 'https://res.cloudinary.com/dsrigtvy4/image/upload/v1783344119/Screenshot_2026-07-05_020650_qeccz0.png', cat: 'Reception Film', title: 'The Reception — Joy in Motion', duration: '3:10', text: 'Dance floor energy, toasts, and the kind of celebration that lingers in memory.' },
 ];
 
 /* Cache fetched thumbnails in localStorage for 7 days so we don't hit the
@@ -2029,7 +2023,6 @@ function renderFilms() {
     <div class="film-card ${f.src ? '' : 'thumb-loading'}" id="filmCard-${idx}" onclick="openFilmModal(${idx})">
       <img id="filmImg-${idx}" src="${f.src || ''}" alt="${f.title}" loading="lazy" class="${f.src ? 'loaded' : ''}"/>
       <div class="film-overlay">
-        <div class="film-top"><span class="film-duration">${f.duration}</span></div>
         <div class="film-play"></div>
         <div class="film-bottom">
           <div class="film-cat">${f.cat}</div>
